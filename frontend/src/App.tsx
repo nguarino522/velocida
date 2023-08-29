@@ -1,8 +1,9 @@
-function App() {
+import Nav from "./components/Nav"
+
+export default function App() {
   return (
     <>
+      <Nav></Nav>
     </>
   )
 }
-
-export default App
