@@ -2,60 +2,42 @@
 
 import express from "express"
 import cors from "cors"
-import { PrismaClient } from '@prisma/client'
+// import { PrismaClient } from '@prisma/client'
+import { NotFoundError } from "./expressError"
+import usersRoutes from "./routes/users"
 
 const app = express()
-const prisma = new PrismaClient()
+// const prisma = new PrismaClient()
 
 app.use(cors())
 app.use(express.json())
 
-async function main() {
-    // ... you will write your Prisma Client queries here
 
-    await prisma.user.create({
-        data: {
-            name: 'Josh',
-            email: 'jguarino722@gmail.com',
-            posts: {
-                create: { title: 'hold my beer' },
-            },
-            profile: {
-                create: { bio: 'REEEEEEE!!!' },
-            },
-        },
-    })
+app.use("/users", usersRoutes)
 
-    const allUsers = await prisma.user.findMany({
-        include: {
-            posts: true,
-            profile: true,
-        },
-    })
-    console.dir(allUsers, { depth: null })
-}
-
-
-app.get("/test", (req, res) => {
-    console.log(process.env.DATABASE_URL)
-    res.send("IS THIS THING ON?!?!?! TEST testing")
-})
-
-app.post("/create_user", async (req, res, next) => {
+app.get("/test", (req, res, next) => {
     try {
-        const user = await prisma.user.create({
-            data: {
-                name: req.body.name,
-                email: req.body.email,
-            }
-        })
-        console.log(user)
-        return res.status(201).json({user})
+        console.log(process.env.DATABASE_URL)
+        res.send("IS THIS THING ON?!?!?! TEST testing")
     } catch (err) {
         return next(err)
     }
+})
 
+/** Handle 404 errors -- this matches everything */
+app.use((req, res, next) => {
+    return next(new NotFoundError())
+});
 
+/** Generic error handler; anything unhandled goes here. */
+app.use((err: any, req: any, res: any, next: any) => {
+    if (process.env.NODE_ENV !== "test") console.error(err.stack)
+    const status = err.status || 500
+    const message = err.message
+
+    return res.status(status).json({
+        error: { message, status }
+    })
 })
 
 export default app

@@ -7,29 +7,93 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
+model Profile {
+  id         Int                @id @default(autoincrement())
+  createdAt  DateTime           @default(now())
+  updatedAt  DateTime           @updatedAt
+  bio        String?
+  userId     Int                @unique
+  age        Int?
+  user       User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  posts      Post[]
+  votes      Vote[]
+  activities Activity[]
+  reactions  ActivityReaction[]
+  comments   ActivityComment[]
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  email     String   @unique
+  username  String?
+  profile   Profile?
+}
+
+model Activity {
+  id          Int                @id @default(autoincrement())
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  title       String
+  description String
+  duration    Decimal            @db.Decimal(10, 2)
+  distance    Decimal            @db.Decimal(10, 2)
+  ownerId     Int
+  owner       Profile            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  comments    ActivityComment[]
+  reactions   ActivityReaction[]
+}
+
+model ActivityComment {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  activityId Int
+  activity   Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  ownerId    Int
+  owner      Profile  @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+}
+
+model ActivityReaction {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  activityId Int
+  activity   Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  ownerId    Int
+  owner      Profile  @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+}
+
+model Thread {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
+  posts     Post[]
+}
+
+model Post {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  content      String
+  published    Boolean  @default(false)
+  authorId     Int
+  author       Profile  @relation(fields: [authorId], references: [id])
+  threadId     Int
+  thread       Thread   @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  parentPostId Int?
+  votes        Vote[]
+}
+
+model Vote {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  postId    Int
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   authorId  Int
-  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
-}
-
-model Profile {
-  id     Int     @id @default(autoincrement())
-  bio    String?
-  userId Int     @unique
-  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
-  age     Int?
-  posts   Post[]
-  profile Profile?
+  author    Profile  @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  direction Boolean
 }
