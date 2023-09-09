@@ -36,7 +36,7 @@ export default class Users {
      */
     static async register(requestBody: registerUser): Promise<User> {
         const { email, username } = requestBody
-        this.checkDuplicates(username, email)
+        await this.checkDuplicates(username, email)
 
         const user = await prisma.user.create({
             data: {
