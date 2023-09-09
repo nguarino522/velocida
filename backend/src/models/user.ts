@@ -9,7 +9,7 @@ interface registerUser {
 
 interface removeUser {
     email: string,
-    username: string|null,
+    username: string,
 }
 
 export default class Users {
