@@ -1,7 +1,6 @@
 import prisma from "../prisma"
 import { User } from "@prisma/client"
 import { BadRequestError, NotFoundError } from "../expressError"
-import { promises } from "dns"
 
 interface registerUser {
     email: string,
