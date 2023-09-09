@@ -1,6 +1,5 @@
 import express from "express"
 import User from "../models/user"
-import prisma from "../prisma"
 
 const router = express.Router()
 
@@ -13,7 +12,7 @@ router.post("/", async (req, res, next) => {
     }
 })
 
-router.get("/", async (req, res, next) => {
+router.get("/all", async (req, res, next) => {
     try {
         const users = await User.getAll()
         return res.json({users})

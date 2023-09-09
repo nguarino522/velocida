@@ -1,9 +1,17 @@
 import prisma from "../prisma"
+import { User } from "@prisma/client"
 import { BadRequestError, NotFoundError } from "../expressError"
 
-class User {
+interface registerUser {
+    email: string,
+    username: string,
+}
 
-    static async register({ email, username }: { email: string, username: string }) {
+export default class Users {
+
+    static async register(requestBody: registerUser) {
+        const { email, username } = requestBody
+        
         // throw error if username already taken / in use
         const duplicateUsername = await prisma.user.findUnique({
             where: { username: username }
@@ -57,9 +65,7 @@ class User {
 
 
     static async update() {
-        
+
     }
 
 }
-
-export default User
