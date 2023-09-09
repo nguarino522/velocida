@@ -1,17 +1,12 @@
 import express from "express"
-import { PrismaClient } from '@prisma/client'
+import User from "../models/user"
+import prisma from "../prisma"
 
-const prisma = new PrismaClient()
 const router = express.Router()
 
 router.post("/", async (req, res, next) => {
-    try {
-        const user = await prisma.user.create({
-            data: {
-                username: req.body.username,
-                email: req.body.email,
-            }
-        })
+    try {      
+        const user = await User.register(req.body)  
         return res.status(201).json({user})
     } catch (err) {
         return next(err)
@@ -26,5 +21,16 @@ router.get("/", async (req, res, next) => {
         return next(err)
     }
 })
+
+router.get("/:username", async (req, res, next) => {
+    try {
+        const users = await prisma.user.findMany()
+        return res.json({users})
+    } catch (err) {
+        return next(err)
+    }
+})
+
+router.patch("/:username")
 
 export default router
