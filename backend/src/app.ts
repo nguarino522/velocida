@@ -5,6 +5,7 @@ import cors from "cors"
 // import { PrismaClient } from '@prisma/client'
 import { NotFoundError } from "./expressError"
 import usersRoutes from "./routes/users"
+import healthRoutes from "./routes/health"
 
 const app = express()
 // const prisma = new PrismaClient()
@@ -14,6 +15,11 @@ app.use(express.json())
 
 
 app.use("/users", usersRoutes)
+app.use("/health", healthRoutes)
+
+app.get("/", async (req, res, next) => {
+    res.send()
+})
 
 app.get("/test", (req, res, next) => {
     try {
