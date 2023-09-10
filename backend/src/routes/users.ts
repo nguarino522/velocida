@@ -1,11 +1,13 @@
 import express from "express"
 import User from "../models/user"
+import createToken from "../helpers/tokens"
 
 const router = express.Router()
 
 router.post("/", async (req, res, next) => {
     try {      
-        const user = await User.register(req.body)  
+        const user = await User.register(req.body)
+        const token = createToken(user)
         return res.status(201).json({user})
     } catch (err) {
         return next(err)

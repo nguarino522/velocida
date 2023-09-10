@@ -1,16 +1,31 @@
 import prisma from "../prisma"
-import { User } from "@prisma/client"
-import { BadRequestError, NotFoundError } from "../expressError"
+import { User, Role } from "@prisma/client"
+import { BadRequestError, NotFoundError, UnauthorizedError } from "../expressError"
+import bcrypt from "bcrypt"
 
 interface registerUser {
     email: string,
     username: string,
+    password: string
 }
 
 interface removeUser {
     email: string,
-    username: string,
+    username: string
 }
+
+interface getUser {
+    email: string,
+    username: string,
+    role: Role
+}
+
+interface authUser {
+    email: string,
+    username: string,
+    role: Role
+}
+
 
 export default class Users {
 
@@ -35,13 +50,14 @@ export default class Users {
      * @returns {Promise<User>}
      */
     static async register(requestBody: registerUser): Promise<User> {
-        const { email, username } = requestBody
+        const { email, username, password } = requestBody
         await this.checkDuplicates(username, email)
 
         const user = await prisma.user.create({
             data: {
                 email: email,
-                username: username
+                username: username,
+                password: password
             }
         })
 
@@ -49,24 +65,34 @@ export default class Users {
     }
 
     /**
-     * get all registered users
-     * @returns {Promise<User[]>}
-     */
-    static async getAll(): Promise<User[]> {
-        const users = await prisma.user.findMany()
+    * authenticate user by username and password
+    * @param username, password
+    * @returns {Promise<authUser>}
+    * @throws {UnauthorizedError}
+    */
+    static async authenticate(username: string, password: string): Promise<authUser> {
+        
+        const user = await prisma.user.findUnique({
+            where: { username: username }
+        })
+        if (!user) { throw new UnauthorizedError("Invalid username/password") }
 
-        return users
+        const isValid = await bcrypt.compare(password, user.password)
+        if (!isValid) { throw new UnauthorizedError("Invalid username/password") }
+
+        return user
     }
 
     /**
      * get user by username
      * @param username 
-     * @returns {Promise<User>}
+     * @returns {Promise<getUser>}
      * @throws {NotFoundError}
      */
-    static async get(username: string): Promise<User> {
+    static async get(username: string): Promise<getUser> {
         const user = await prisma.user.findUnique({
-            where: { username: username }
+            where: { username: username },
+            select: { email: true, username: true, role: true }
         })
         if (!user) throw new NotFoundError(`User Not Found: ${username}`);
 
@@ -92,5 +118,16 @@ export default class Users {
     static async update() {
 
     }
+
+    // temp for dev work remove in future
+    static async getAll() {
+        const users = await prisma.user.findMany()
+
+        return users
+    }
+
+
+
+
 
 }
