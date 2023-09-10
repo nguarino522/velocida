@@ -43,7 +43,7 @@ export const ensureLoggedIn = (req: Request, res: Response, next: NextFunction) 
  */
 export const ensureAdmin = (req: Request, res: Response, next: NextFunction) => {
     try {
-        if (!res.locals.user || !res.locals.user.isAdmin) {
+        if (!res.locals.user || res.locals.user.role !== "ADMIN") {
             throw new UnauthorizedError();
         }
         return next();
@@ -60,7 +60,7 @@ export const ensureAdmin = (req: Request, res: Response, next: NextFunction) => 
 export const ensureCorrectUserOrAdmin = (req: Request, res: Response, next: NextFunction) => {
     try {
         const user = res.locals.user;
-        if (!(user && (user.isAdmin || user.username === req.params.username))) {
+        if (!(user && (res.locals.user.role === "ADMIN" || user.username === req.params.username))) {
             throw new UnauthorizedError();
         }
         return next();

@@ -1,10 +1,16 @@
 import jwt from "jsonwebtoken"
 import { SECRET_KEY } from "../config"
-import { User } from "@prisma/client"
+import { Role } from "@prisma/client"
 
-const createToken = (user: User) => {
+interface registeredUser {
+    email: string,
+    username: string,
+    role: Role
+}
+
+const createToken = (user: registeredUser) => {
     
-    console.assert(user.role !== undefined, "createToken passed user without isAdmin property")
+    console.assert(user.role !== undefined, "createToken passed user without role property")
     
     let payload = {
         username: user.username,

@@ -2,11 +2,18 @@ import prisma from "../prisma"
 import { User, Role } from "@prisma/client"
 import { BadRequestError, NotFoundError, UnauthorizedError } from "../expressError"
 import bcrypt from "bcrypt"
+import { BCRYPT_WORK_FACTOR } from "../config"
 
 interface registerUser {
     email: string,
     username: string,
     password: string
+}
+
+interface registeredUser {
+    email: string,
+    username: string,
+    role: Role
 }
 
 interface removeUser {
@@ -47,17 +54,23 @@ export default class Users {
     /**
      * register new user
      * @param requestBody {registerUser}
-     * @returns {Promise<User>}
+     * @returns {Promise<registeredUser>}
      */
-    static async register(requestBody: registerUser): Promise<User> {
+    static async register(requestBody: registerUser): Promise<registeredUser> {
         const { email, username, password } = requestBody
         await this.checkDuplicates(username, email)
+
+        const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
 
         const user = await prisma.user.create({
             data: {
                 email: email,
                 username: username,
-                password: password
+                password: hashedPassword
+            }, select: {
+                email: true,
+                username: true,
+                role: true
             }
         })
 
@@ -114,7 +127,7 @@ export default class Users {
         return user
     }
 
-
+    
     static async update() {
 
     }
