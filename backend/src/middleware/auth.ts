@@ -4,67 +4,62 @@ import { SECRET_KEY } from "../config"
 import { UnauthorizedError } from "../expressError"
 
 /** Middleware: Authenticate user.
- *
  * If a token was provided, verify it, and, if valid, store the token payload
  * on res.locals (this will include the username and isAdmin field.)
- *
  * It's not an error if no token was provided or if the token is not valid.
  */
 export const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
     try {
-        const authHeader = req.headers && req.headers.authorization;
+        const authHeader = req.headers && req.headers.authorization
         if (authHeader) {
-            const token = authHeader.replace(/^[Bb]earer /, "").trim();
-            res.locals.user = jwt.verify(token, SECRET_KEY);
+            const token = authHeader.replace(/^[Bb]earer /, "").trim()
+            res.locals.user = jwt.verify(token, SECRET_KEY)
         }
-        return next();
+        return next()
     } catch (err) {
-        return next();
+        return next()
     }
 }
 
 /** Middleware to use when they must be logged in.
- *
  * If not, raises Unauthorized.
  */
 export const ensureLoggedIn = (req: Request, res: Response, next: NextFunction) => {
     try {
-        if (!res.locals.user) throw new UnauthorizedError();
-        return next();
+        if (!res.locals.user) throw new UnauthorizedError()
+        return next()
     } catch (err) {
-        return next(err);
+        return next(err)
     }
 }
 
 
 /** Middleware to use when they be logged in as an admin user.
- *
  *  If not, raises Unauthorized.
  */
 export const ensureAdmin = (req: Request, res: Response, next: NextFunction) => {
     try {
         if (!res.locals.user || res.locals.user.role !== "ADMIN") {
-            throw new UnauthorizedError();
+            throw new UnauthorizedError()
         }
-        return next();
+        return next()
     } catch (err) {
-        return next(err);
+        return next(err)
     }
 }
 
 /** Middleware to use when they must provide a valid token & be user matching
- *  username provided as route param.
- *
+ *  username provided as route param or admin.
  *  If not, raises Unauthorized.
  */
 export const ensureCorrectUserOrAdmin = (req: Request, res: Response, next: NextFunction) => {
     try {
-        const user = res.locals.user;
+        const user = res.locals.user
         if (!(user && (res.locals.user.role === "ADMIN" || user.username === req.params.username))) {
-            throw new UnauthorizedError();
+            throw new UnauthorizedError()
         }
-        return next();
+        return next()
     } catch (err) {
-        return next(err);
+        return next(err)
     }
 }

@@ -1,51 +1,34 @@
 import express from "express"
-import Profile from "../models/profile"
+import Profiles from "../models/profile"
+//import { ensureUserProfileSetup } from "../middleware/profile"
 
 const router = express.Router()
 
-// router.post("/", async (req, res, next) => {
-//     try {      
-//         const user = await Profile.create(req.body)  
-//         return res.status(201).json({user})
-//     } catch (err) {
-//         return next(err)
-//     }
-// })
+router.post("/", async (req, res, next) => {
+    try {
+        const profile = await Profiles.create(req.body)
+        return res.status(201).json({ profile })
+    } catch (err) {
+        return next(err)
+    }
+})
 
-// router.get("/all", async (req, res, next) => {
-//     try {
-//         const users = await User.getAll()
-//         return res.json({users})
-//     } catch (err) {
-//         return next(err)
-//     }
-// })
+router.get("/:id", async (req, res, next) => {
+    try {
+        const profile = await Profiles.get(Number(req.params.id))
+        return res.json({ profile })
+    } catch (err) {
+        return next(err)
+    }
+})
 
-// router.get("/:username", async (req, res, next) => {
-//     try {
-//         const user = await User.get(req.params.username)
-//         return res.json({user})
-//     } catch (err) {
-//         return next(err)
-//     }
-// })
-
-// // implement later
-// router.patch("/:username", async (req, res, next) => {
-//     try {
-//         // const user = await User.update(req.params.username, req.body)
-//     } catch (err) {
-//         return next(err)
-//     }
-// })
-
-// router.delete("/:username", async (req, res, next) => {
-//     try {
-//         const user = await User.remove(req.params.username)
-//         return res.json({ deleted: user })
-//     } catch (err) {
-//         return next(err)
-//     }
-// })
+router.patch("/:id", async (req, res, next) => {
+    try {
+        const profile = await Profiles.update(Number(req.params.id), req.body)
+        return res.json({ profile })
+    } catch (err) {
+        return next(err)
+    }
+})
 
 export default router

@@ -13,8 +13,9 @@ const createToken = (user: registeredUser) => {
     console.assert(user.role !== undefined, "createToken passed user without role property")
     
     let payload = {
+        email: user.email,
         username: user.username,
-        isAdmin: user.role === "ADMIN" || false
+        role: user.role
     }
 
     return jwt.sign(payload, SECRET_KEY)

@@ -38,7 +38,12 @@ export default class Activities {
      */
     static async get(activityId: number): Promise<Activity> {
         const activity = await prisma.activity.findUnique({
-            where: { id: activityId }
+            where: { id: activityId },
+            include: {
+                owner: true,
+                comments: true,
+                reactions: true
+            }
         })
         if (!activity) throw new NotFoundError(`Activity Not Found: ${activityId}`);
     

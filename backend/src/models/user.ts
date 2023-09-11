@@ -92,7 +92,7 @@ export default class Users {
 
         const isValid = await bcrypt.compare(password, user.password)
         if (!isValid) { throw new UnauthorizedError("Invalid username/password") }
-
+        
         return user
     }
 
@@ -105,7 +105,7 @@ export default class Users {
     static async get(username: string): Promise<getUser> {
         const user = await prisma.user.findUnique({
             where: { username: username },
-            select: { email: true, username: true, role: true }
+            select: { email: true, username: true, role: true, profile: true }
         })
         if (!user) throw new NotFoundError(`User Not Found: ${username}`);
 
