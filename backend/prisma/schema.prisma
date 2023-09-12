@@ -20,8 +20,8 @@ model Profile {
   posts      Post[]
   votes      Vote[]
   activities Activity[]
-  reactions  ActivityReaction[]
-  comments   ActivityComment[]
+  reactions  Reaction[]
+  comments   Comment[]
   followers  Follow[]          @relation("following")
   following  Follow[]          @relation("follower")
 }
@@ -58,11 +58,11 @@ model Activity {
   distance    Decimal            @db.Decimal(10, 2)
   ownerId     Int
   owner       Profile            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  comments    ActivityComment[]
-  reactions   ActivityReaction[]
+  comments    Comment[]
+  reactions   Reaction[]
 }
 
-model ActivityComment {
+model Comment {
   id         Int      @id @default(autoincrement())
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
@@ -72,7 +72,7 @@ model ActivityComment {
   owner      Profile  @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 }
 
-model ActivityReaction {
+model Reaction {
   id         Int      @id @default(autoincrement())
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
