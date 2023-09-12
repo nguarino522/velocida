@@ -22,11 +22,11 @@ model Profile {
   activities Activity[]
   reactions  ActivityReaction[]
   comments   ActivityComment[]
-  followers  Follows[]          @relation("followee")
-  followees  Follows[]          @relation("follower")
+  followers  Follow[]          @relation("followee")
+  followees  Follow[]          @relation("follower")
 }
 
-model Follows {
+model Follow {
   id         Int                @id @default(autoincrement())
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
