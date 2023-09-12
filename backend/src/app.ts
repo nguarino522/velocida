@@ -10,6 +10,7 @@ import healthRoutes from "./routes/health"
 import authRoutes from "./routes/auth"
 import profileRoutes from "./routes/profiles"
 import followRoutes from "./routes/follows"
+import activityRoutes from "./routes/activities"
 
 const app = express()
 
@@ -23,6 +24,7 @@ app.use("/user", usersRoutes)
 app.use("/health", healthRoutes)
 app.use("/profile", profileRoutes)
 app.use("/follow", followRoutes)
+app.use("/activity", activityRoutes)
 
 app.get("/", async (req, res, next) => {
     res.send()

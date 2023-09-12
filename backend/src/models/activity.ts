@@ -7,6 +7,14 @@ interface createActivity {
     description: string,
     duration: number,
     distance: number,
+    ownerId: number
+}
+
+interface updateActivity {
+    title: string,
+    description: string,
+    duration: number,
+    distance: number
 }
 
 export default class Activities {
@@ -16,19 +24,19 @@ export default class Activities {
      * @returns {Promise<Activity>}
      */
     static async create(requestBody: createActivity): Promise<Activity> {
-        const {title, description, duration, distance} = requestBody
+        const { title, description, duration, distance, ownerId } = requestBody
         const activity = await prisma.activity.create({
             data: {
                 title: title,
                 description: description,
                 duration: duration,
                 distance: distance,
-                ownerId: 1 // todo: need userId from logged in user, might fail 
+                ownerId: ownerId
             }
         })
 
         return activity
-    } 
+    }
 
     /**
      * get activity by id
@@ -46,7 +54,40 @@ export default class Activities {
             }
         })
         if (!activity) throw new NotFoundError(`Activity Not Found: ${activityId}`);
-    
+
+        return activity
+    }
+
+    /**
+     * update activity by id
+     * @param activityId @param requestBody
+     * @returns {Promise<Activity>}
+     */
+    static async update(activityId: number, requestBody: updateActivity): Promise<Activity> {
+        const { title, description, duration, distance } = requestBody
+        const activity = await prisma.activity.update({
+            where: { id: activityId },
+            data: {
+                title: title,
+                description: description,
+                duration: duration,
+                distance: distance
+            }
+        })
+
+        return activity
+    }
+
+    /**
+     * delete activity by id
+     * @param activityId 
+     * @returns {Promise<Activity>}
+     */
+    static async remove(activityId: number): Promise<Activity> {
+        const activity = await prisma.activity.delete({
+            where: { id: activityId }
+        })
+
         return activity
     }
 }
