@@ -22,18 +22,19 @@ model Profile {
   activities Activity[]
   reactions  ActivityReaction[]
   comments   ActivityComment[]
-  followers  Follow[]          @relation("followee")
-  followees  Follow[]          @relation("follower")
+  followers  Follow[]          @relation("following")
+  following  Follow[]          @relation("follower")
 }
 
 model Follow {
-  id         Int                @id @default(autoincrement())
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  followee   Profile  @relation("followee", fields: [followeeId], references: [id], onDelete: Cascade)
+  followee   Profile  @relation("following", fields: [followeeId], references: [id], onDelete: Cascade)
   followeeId Int
   follower   Profile  @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
   followerId Int
+
+  @@id([followerId, followeeId])
 }
 
 model User {

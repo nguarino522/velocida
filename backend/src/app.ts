@@ -4,11 +4,12 @@ import express from "express"
 import cors from "cors"
 import { authenticateJWT } from "./middleware/auth"
 import { NotFoundError } from "./expressError"
+import morgan from "morgan"
 import usersRoutes from "./routes/users"
 import healthRoutes from "./routes/health"
 import authRoutes from "./routes/auth"
 import profileRoutes from "./routes/profiles"
-import morgan from "morgan"
+import followRoutes from "./routes/follows"
 
 const app = express()
 
@@ -21,6 +22,7 @@ app.use("/auth", authRoutes)
 app.use("/user", usersRoutes)
 app.use("/health", healthRoutes)
 app.use("/profile", profileRoutes)
+app.use("/follow", followRoutes)
 
 app.get("/", async (req, res, next) => {
     res.send()

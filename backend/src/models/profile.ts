@@ -1,5 +1,5 @@
-import { Profile } from "@prisma/client";
-import prisma from "../prisma";
+import { Profile } from "@prisma/client"
+import prisma from "../prisma"
 import { BadRequestError, NotFoundError } from "../expressError"
 
 interface createProfile {
@@ -56,7 +56,7 @@ export default class Profiles {
                 reactions: true,
                 comments: true,
                 followers: true,
-                followees: true
+                following: true
             }
         })
         if (!profile) throw new NotFoundError(`Profile Not Found: ${profileId}`);
