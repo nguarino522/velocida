@@ -8,22 +8,23 @@ datasource db {
 }
 
 model Profile {
-  id         Int                @id @default(autoincrement())
-  createdAt  DateTime           @default(now())
-  updatedAt  DateTime           @updatedAt
+  id         Int        @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
   bio        String?
   firstName  String
   lastName   String
-  userId     Int                @unique
+  userId     Int        @unique
   age        Int?
-  user       User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   posts      Post[]
   votes      Vote[]
   activities Activity[]
   reactions  Reaction[]
   comments   Comment[]
-  followers  Follow[]          @relation("following")
-  following  Follow[]          @relation("follower")
+  followers  Follow[]   @relation("following")
+  following  Follow[]   @relation("follower")
+  Thread     Thread[]
 }
 
 model Follow {
@@ -49,15 +50,15 @@ model User {
 }
 
 model Activity {
-  id          Int                @id @default(autoincrement())
-  createdAt   DateTime           @default(now())
-  updatedAt   DateTime           @updatedAt
+  id          Int        @id @default(autoincrement())
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
   title       String
   description String
-  duration    Decimal            @db.Decimal(10, 2)
-  distance    Decimal            @db.Decimal(10, 2)
+  duration    Decimal    @db.Decimal(10, 2)
+  distance    Decimal    @db.Decimal(10, 2)
   ownerId     Int
-  owner       Profile            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  owner       Profile    @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   comments    Comment[]
   reactions   Reaction[]
 }
@@ -87,6 +88,8 @@ model Thread {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String   @db.VarChar(255)
+  authorId  Int
+  author    Profile  @relation(fields: [authorId], references: [id])
   posts     Post[]
 }
 
@@ -95,7 +98,6 @@ model Post {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   content      String
-  published    Boolean  @default(false)
   authorId     Int
   author       Profile  @relation(fields: [authorId], references: [id])
   threadId     Int
