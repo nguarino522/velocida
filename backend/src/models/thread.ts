@@ -1,6 +1,6 @@
 import { Thread } from "@prisma/client"
 import prisma from "../prisma"
-import {  NotFoundError } from "../expressError"
+import { NotFoundError } from "../expressError"
 interface createThread {
 
 }
@@ -23,24 +23,24 @@ export default class Threads {
         return thread
     }
 
-/**
+    /**
      * get thread by id
      * @param threadId 
      * @returns {Promise<Thread>}
      * @throws {NotFoundError}
      */
-static async get(threadId: number): Promise<Thread> {
-    const thread = await prisma.thread.findUnique({
-        where: { id: threadId },
-        include: {
-            author: true,
-            posts: true
-        }
-    })
-    if (!thread) throw new NotFoundError(`Thread Not Found: ${threadId}`);
+    static async get(threadId: number): Promise<Thread> {
+        const thread = await prisma.thread.findUnique({
+            where: { id: threadId },
+            include: {
+                author: true,
+                posts: true
+            }
+        })
+        if (!thread) throw new NotFoundError(`Thread Not Found: ${threadId}`);
 
-    return thread
-}
+        return thread
+    }
 
     /**
      * delete thread by id

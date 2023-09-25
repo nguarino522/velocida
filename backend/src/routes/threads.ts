@@ -15,7 +15,7 @@ router.post("/", async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
     try {
         const thread = await Threads.get(Number(req.params.id))
-        return res.status(201).json({ thread })
+        return res.json({ thread })
     } catch (err) {
         return next(err)
     }
@@ -26,7 +26,7 @@ router.delete("/:id", async (req, res, next) => {
         const thread = await Threads.remove(Number(req.params.id))
         return res.json({ deleted: thread })
     } catch (err) {
-
+        return next(err)
     }
 })
 

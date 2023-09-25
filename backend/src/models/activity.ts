@@ -50,7 +50,7 @@ export default class Activities {
             include: {
                 owner: true,
                 comments: true,
-                reactions: true
+                likes: true
             }
         })
         if (!activity) throw new NotFoundError(`Activity Not Found: ${activityId}`);

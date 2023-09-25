@@ -53,7 +53,7 @@ export default class Profiles {
                 posts: true,
                 votes: true,
                 activities: true,
-                reactions: true,
+                likes: true,
                 comments: true,
                 followers: true,
                 following: true

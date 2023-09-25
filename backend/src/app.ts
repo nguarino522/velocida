@@ -13,6 +13,9 @@ import followRoutes from "./routes/follows"
 import activityRoutes from "./routes/activities"
 import postRoutes from "./routes/posts"
 import threadRoutes from "./routes/threads"
+import voteRoutes from "./routes/votes"
+import likeRoutes from "./routes/likes"
+import commentRoutes from "./routes/comments"
 
 const app = express()
 
@@ -29,6 +32,9 @@ app.use("/follow", followRoutes)
 app.use("/activity", activityRoutes)
 app.use("/post", postRoutes)
 app.use("/thread", threadRoutes)
+app.use("/vote", voteRoutes)
+app.use("/like", likeRoutes)
+app.use("/comment", commentRoutes)
 
 app.get("/", async (req, res, next) => {
     res.send()
