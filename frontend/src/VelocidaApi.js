@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5227";
+//const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5227";
+const BASE_URL = import.meta.env.REACT_APP_BASE_URL || "http://localhost:5227";
 
 /** API Class.
  *
@@ -78,14 +79,14 @@ class VelocidaApi {
   /** Save user profile page. */
 
   static async saveProfile(username, data) {
-    let res = await this.request(`users/${username}`, data, "patch");
+    let res = await this.request(`user/${username}`, data, "patch");
     return res.user;
   }
 
   /** Get the current user. */
 
   static async getCurrentUser(username) {
-    let res = await this.request(`users/${username}`);
+    let res = await this.request(`user/${username}`);
     return res.user;
   }
  

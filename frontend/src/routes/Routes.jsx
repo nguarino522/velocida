@@ -11,6 +11,7 @@ const Routing = ({ login, signup }) => {
         <div>
             <Routes>
                 <Route path="/"  element={<Homepage />} />
+                <Route path="/dashboard" />
                 <Route path="/login" element={<LoginForm login={login} />} />
                 <Route path="/signup" element={<SignupForm signup={signup} />} />
                 <Route path="/news" />

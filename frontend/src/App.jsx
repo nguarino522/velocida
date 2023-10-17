@@ -24,7 +24,6 @@ function App() {
           VelocidaApi.token = token;
           let currentUser = await VelocidaApi.getCurrentUser(username);
           setCurrentUser(currentUser);
-          setApplicationIds(new Set(currentUser.applications));
         } catch (err) {
           console.error("Problem loading user information", err);
           setCurrentUser(null);

@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import UserContext from "../UserContext";
+import "./NavBar.css"
 
 const NavBar = ({ logout }) => {
   const { currentUser } = useContext(UserContext);
   
   const loggedInNav = () => {
     return (
-      <Navbar bg="dark" variant="dark" className="my-2">
+      <Navbar className="NavBar" >
         <Navbar.Brand className="m-3" href="/">Velocida</Navbar.Brand>
         <Nav className="ms-auto p-3">
           <Nav.Link href="/profile">Profile</Nav.Link>
@@ -19,7 +20,7 @@ const NavBar = ({ logout }) => {
 
   const loggedOutNav = () => {
     return (
-    <Navbar bg="dark" variant="dark" className="my-2">
+    <Navbar  className="NavBar">
       <Navbar.Brand className="m-3" href="/">Velocida</Navbar.Brand>
       <Nav className="ms-auto p-3">
         <Nav.Link href="/login">Login</Nav.Link>

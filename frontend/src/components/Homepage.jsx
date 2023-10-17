@@ -16,12 +16,12 @@ const Homepage = () => {
                     </h2>
                     <p>
                         <Link className="btn btn-primary font-weight-bold m-2"
-                            to="/companies">
-                            Companies
+                            to="/news">
+                            News
                         </Link>
                         <Link className="btn btn-primary font-weight-bold m-2"
-                            to="/jobs">
-                            Jobs
+                            to="/dashboard">
+                            Dashboard
                         </Link>
                     </p>
                     </>
