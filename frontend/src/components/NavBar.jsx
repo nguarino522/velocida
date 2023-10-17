@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar, Nav } from "react-bootstrap";
 import UserContext from "../UserContext";
 
 const NavBar = ({ logout }) => {
@@ -7,11 +7,9 @@ const NavBar = ({ logout }) => {
   
   const loggedInNav = () => {
     return (
-      <Navbar bg="dark" variant="dark">
+      <Navbar bg="dark" variant="dark" className="my-2">
         <Navbar.Brand className="m-3" href="/">Velocida</Navbar.Brand>
         <Nav className="ms-auto p-3">
-          <Nav.Link href="/companies">Companies</Nav.Link>
-          <Nav.Link href="/jobs">Jobs</Nav.Link>
           <Nav.Link href="/profile">Profile</Nav.Link>
           <Nav.Link href="/" onClick={logout} >Logout {currentUser.username}</Nav.Link>
         </Nav>
@@ -21,7 +19,7 @@ const NavBar = ({ logout }) => {
 
   const loggedOutNav = () => {
     return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar className="my-2">
       <Navbar.Brand className="m-3" href="/">Velocida</Navbar.Brand>
       <Nav className="ms-auto p-3">
         <Nav.Link href="/login">Login</Nav.Link>
@@ -33,8 +31,7 @@ const NavBar = ({ logout }) => {
 
   return (
     <>
-        loggedOutNav()
-      {/* {currentUser ? loggedInNav() : loggedOutNav()} */}
+      {currentUser ? loggedInNav() : loggedOutNav()}
     </>
   );
 };

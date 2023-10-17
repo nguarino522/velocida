@@ -1,36 +1,78 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
+import LoadingSpinner from './components/LoadingSpinner';
+import useLocalStorage from "./hooks/useLocalStorage";
+import NavBar from './components/NavBar';
+import UserContext from './UserContext';
+import { BrowserRouter } from "react-router-dom";
+import Routing from './routes/Routes';
 import './App.css'
-import NavBar from './components/NavBar'
+
+export const TOKEN_STORAGE_ID = "jobly-token";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [infoLoaded, setInfoLoaded] = useState(false);
+  const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    async function getCurrentUser() {
+      if (token) {
+        try {
+          let { username } = jwt.decode(token);
+          JoblyApi.token = token;
+          let currentUser = await JoblyApi.getCurrentUser(username);
+          setCurrentUser(currentUser);
+          setApplicationIds(new Set(currentUser.applications));
+        } catch (err) {
+          console.error("Problem loading user information", err);
+          setCurrentUser(null);
+        }
+      } setInfoLoaded(true);
+    }
+    setInfoLoaded(false);
+    getCurrentUser();
+  }, [token]);
+
+  const login = async (loginData) => {
+    try {
+      let token = await JoblyApi.login(loginData);
+      setToken(token);
+      return { success: true };
+    } catch (errors) {
+      console.error("login failed", errors);
+      return { success: false, errors };
+    }
+  }
+
+  const signup = async (signupData) => {
+    try {
+      let token = await JoblyApi.signup(signupData);
+      setToken(token);
+      return { success: true };
+    } catch (errors) {
+      console.error("signup failed", errors);
+      return { success: false, errors };
+    }
+  }
+
+  const logout = () => {
+    setCurrentUser(null);
+    setToken(null);
+  }
+
+  if (!infoLoaded) return <LoadingSpinner />;
 
   return (
-    <>
-      <NavBar />
-      {/* <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p> */}
-    </>
+    <div className="App">
+      <BrowserRouter>
+        <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+          <NavBar logout={logout} />
+          <div className="m-5 fading-in">
+            <Routing login={login} signup={signup} />
+          </div>
+        </UserContext.Provider>
+      </BrowserRouter>
+    </div>
   )
 }
 
