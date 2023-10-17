@@ -19,7 +19,7 @@ const NavBar = ({ logout }) => {
 
   const loggedOutNav = () => {
     return (
-    <Navbar className="my-2">
+    <Navbar bg="dark" variant="dark" className="my-2">
       <Navbar.Brand className="m-3" href="/">Velocida</Navbar.Brand>
       <Nav className="ms-auto p-3">
         <Nav.Link href="/login">Login</Nav.Link>

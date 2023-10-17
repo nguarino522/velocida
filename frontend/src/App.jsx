@@ -6,6 +6,8 @@ import UserContext from './UserContext';
 import { BrowserRouter } from "react-router-dom";
 import Routing from './routes/Routes';
 import './App.css'
+import jwt from "jsonwebtoken";
+import VelocidaApi from './VelocidaApi';
 
 export const TOKEN_STORAGE_ID = "jobly-token";
 
@@ -19,8 +21,8 @@ function App() {
       if (token) {
         try {
           let { username } = jwt.decode(token);
-          JoblyApi.token = token;
-          let currentUser = await JoblyApi.getCurrentUser(username);
+          VelocidaApi.token = token;
+          let currentUser = await VelocidaApi.getCurrentUser(username);
           setCurrentUser(currentUser);
           setApplicationIds(new Set(currentUser.applications));
         } catch (err) {
@@ -35,7 +37,7 @@ function App() {
 
   const login = async (loginData) => {
     try {
-      let token = await JoblyApi.login(loginData);
+      let token = await VelocidaApi.login(loginData);
       setToken(token);
       return { success: true };
     } catch (errors) {
@@ -46,7 +48,7 @@ function App() {
 
   const signup = async (signupData) => {
     try {
-      let token = await JoblyApi.signup(signupData);
+      let token = await VelocidaApi.signup(signupData);
       setToken(token);
       return { success: true };
     } catch (errors) {
