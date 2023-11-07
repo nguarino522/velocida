@@ -15,3 +15,11 @@ img {
     padding: 2px;
     margin: 5px;
 }
+
+.nav-link:hover {
+    background-color: #72A276;
+}
+
+.nav-link {
+    margin: 5px;
+}
