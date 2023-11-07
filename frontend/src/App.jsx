@@ -8,6 +8,7 @@ import Routing from './routes/Routes';
 import './App.css'
 import jwt from "jsonwebtoken";
 import VelocidaApi from './VelocidaApi';
+import Particles from "react-tsparticles";
 
 export const TOKEN_STORAGE_ID = "jobly-token";
 

@@ -1,4 +1,17 @@
 .NavBar {
     background: #A0EEC0;
-    color: #666B6A;
+}
+
+.nav-link.active {
+    color: #d4e9e0 !important;
+    background: #666B6A !important;
+}
+
+img {
+    width: auto;
+    height: auto;
+    max-width: 50px;
+    max-height: 50px;
+    padding: 2px;
+    margin: 5px;
 }

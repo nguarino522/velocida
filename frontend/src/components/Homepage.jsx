@@ -29,11 +29,11 @@ const Homepage = () => {
                         <p>
                             <Link className="btn btn-primary font-weight-bold m-2"
                                 to="/login">
-                                Log in
+                                Log In
                             </Link>
                             <Link className="btn btn-primary font-weight-bold m-2"
                                 to="/signup">
-                                Sign up
+                                Sign Up
                             </Link>
                         </p>
                     )}
