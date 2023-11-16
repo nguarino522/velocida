@@ -15,11 +15,11 @@ const Homepage = () => {
                         Welcome Back, {currentUser.firstName || currentUser.username}!
                     </h2>
                     <p>
-                        <Link className="btn btn-primary font-weight-bold m-2"
+                        <Link className="btn btn-success font-weight-bold m-2"
                             to="/news">
                             News
                         </Link>
-                        <Link className="btn btn-primary font-weight-bold m-2"
+                        <Link className="btn btn-success font-weight-bold m-2"
                             to="/dashboard">
                             Dashboard
                         </Link>
@@ -27,11 +27,11 @@ const Homepage = () => {
                     </>
                     : (
                         <p>
-                            <Link className="btn btn-primary font-weight-bold m-2"
+                            <Link className="btn btn-success font-weight-bold m-2"
                                 to="/login">
                                 Log In
                             </Link>
-                            <Link className="btn btn-primary font-weight-bold m-2"
+                            <Link className="btn btn-success font-weight-bold m-2"
                                 to="/signup">
                                 Sign Up
                             </Link>

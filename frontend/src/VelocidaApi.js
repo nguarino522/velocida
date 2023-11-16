@@ -37,6 +37,12 @@ class VelocidaApi {
 
   // Individual API routes
 
+  /** get rss feed from worldathletics.org */
+  static async getNews() {
+    let res = await this.request("news")
+    return res
+  }
+
   /** Get details on a company by handle. */
   static async getCompany(handle) {
     let res = await this.request(`companies/${handle}`);
@@ -50,41 +56,35 @@ class VelocidaApi {
   }
 
   /** Get list of jobs (filtered by title if not undefined) */
-
   static async getJobs(title) {
     let res = await this.request("jobs", { title });
     return res.jobs;
   }
 
   /** Apply to a job */
-
   static async applyToJob(username, id) {
     await this.request(`users/${username}/jobs/${id}`, {}, "post");
   }
 
   /** Get token for login from username, password. */
-
   static async login(data) {
     let res = await this.request(`auth/token`, data, "post");
     return res.token;
   }
 
   /** Signup for site. */
-
   static async signup(data) {
     let res = await this.request(`auth/register`, data, "post");
     return res.token;
   }
 
   /** Save user profile page. */
-
   static async saveProfile(username, data) {
     let res = await this.request(`user/${username}`, data, "patch");
     return res.user;
   }
 
   /** Get the current user. */
-
   static async getCurrentUser(username) {
     let res = await this.request(`user/${username}`);
     return res.user;

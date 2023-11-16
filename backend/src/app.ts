@@ -16,6 +16,7 @@ import threadRoutes from "./routes/threads"
 import voteRoutes from "./routes/votes"
 import likeRoutes from "./routes/likes"
 import commentRoutes from "./routes/comments"
+import request from "request"
 
 const app = express()
 
@@ -38,6 +39,29 @@ app.use("/comment", commentRoutes)
 
 app.get("/", async (req, res, next) => {
     res.send()
+})
+
+/** get rss feed from worldathletics.org */
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*')
+    next()
+})
+
+app.get('/news', (req, res) => {
+    request(
+        { url: "https://worldathletics.org/news/rss" },
+        (error, response, body) => {
+            if (error || response.statusCode !== 200) {
+                return res.status(500).json({
+                    type: 'error', message:
+                        error.message
+                })
+            }
+
+            res.set('Content-Type', 'application/rss+xml')
+            res.send(Buffer.from(body))
+        }
+    )
 })
 
 /** Handle 404 errors -- this matches everything */
