@@ -5,7 +5,7 @@ import UserContext from "../UserContext";
 import "./NavBar.css"
 import img from "../assets/runner.png"
 
-const NavBar = ({ logout }) => {
+const NavBar = ({ logout, showToast }) => {
   const { currentUser } = useContext(UserContext);
 
   const loggedInNav = () => {

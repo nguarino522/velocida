@@ -56,3 +56,33 @@ body {
 .fading-in {
   animation: fadeIn 2s;
 }
+
+.btn-custom {
+  background-color: #8AE9C1 !important;
+  color: #282c34 !important;
+}
+
+.btn-custom:hover {
+  background-color: #72A276 !important;
+  color: white !important;
+}
+
+.card-img-top {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: cover;
+}
+
+.card-custom {
+  border-radius: 15px !important;
+}
+
+.card-custom:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2) !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.progress-bar {
+  background-color: #8AE9C1 !important;
+}

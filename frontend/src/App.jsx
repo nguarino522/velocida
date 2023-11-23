@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import LoadingSpinner from './components/LoadingSpinner';
 import useLocalStorage from "./hooks/useLocalStorage";
 import NavBar from './components/NavBar';
@@ -8,7 +8,9 @@ import Routing from './routes/Routes';
 import './App.css'
 import jwt from "jsonwebtoken";
 import VelocidaApi from './VelocidaApi';
-import Particles from "react-tsparticles";
+import ToastComponent from './components/ToastComponent';
+import { Button } from 'react-bootstrap';
+import Background from './components/Background';
 
 export const TOKEN_STORAGE_ID = "jobly-token";
 
@@ -16,6 +18,7 @@ function App() {
   const [infoLoaded, setInfoLoaded] = useState(false);
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
   const [currentUser, setCurrentUser] = useState(null);
+  const [toasts, setToasts] = useState([]);
 
   useEffect(() => {
     async function getCurrentUser() {
@@ -39,9 +42,11 @@ function App() {
     try {
       let token = await VelocidaApi.login(loginData);
       setToken(token);
+      showToast("Successfully logged in.")
       return { success: true };
     } catch (errors) {
       console.error("login failed", errors);
+      showToast("ERROR: Failed to login.")
       return { success: false, errors };
     }
   }
@@ -50,9 +55,11 @@ function App() {
     try {
       let token = await VelocidaApi.signup(signupData);
       setToken(token);
+      showToast("Successfully created account.")
       return { success: true };
     } catch (errors) {
       console.error("signup failed", errors);
+      showToast("ERROR: Failed to create account.")
       return { success: false, errors };
     }
   }
@@ -62,19 +69,37 @@ function App() {
     setToken(null);
   }
 
+  const handleToastClose = (id) => {
+    setToasts((prevToasts) => prevToasts.filter((toast) => toast.id !== id));
+  }
+
+  const showToast = (message) => {
+    const newToast = {
+      id: new Date().getTime(),
+      message,
+    }
+    console.log(newToast)
+    setToasts((toasts) => [...toasts, newToast]);
+  }
+
   if (!infoLoaded) return <LoadingSpinner />;
 
   return (
+    <>
+    <Background />
     <div className="App">
       <BrowserRouter>
         <UserContext.Provider value={{ currentUser, setCurrentUser }}>
           <NavBar logout={logout} />
           <div className="m-5 fading-in">
+            <ToastComponent toasts={toasts} handleToastClose={handleToastClose} />
+            <Button className="btn-custom" onClick={() => showToast("its working... its working!")}>Show Toast</Button>
             <Routing login={login} signup={signup} />
           </div>
         </UserContext.Provider>
       </BrowserRouter>
     </div>
+    </>
   )
 }
 

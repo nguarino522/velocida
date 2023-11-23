@@ -27,28 +27,31 @@ const News = () => {
     if (!newsFeed) return <LoadingSpinner />;
 
     return (
-        <Container>
-            <Row className="flex">
-                {newsFeed.length
-                    ? (
-                        <>
-                            {newsFeed.map(n => (
-                                <Card style={{ width: "15rem", margin: "2rem" }}>
-                                    <Card.Body>
-                                        <Card.Img style={{ height: "200px", objectFit: "none" }} variant="top" src={n.image} />
-                                        <Card.Title>{n.title}</Card.Title>
-                                        <Button style={{ background: ""}}variant="success">Read News Story</Button>
-                                    </Card.Body>
-                                </Card>
-                            ))
-                            }
-                        </>
-                    ) : (
-                        <p className="alert alert-info">Sorry, no news stories were found! Check back later... </p>
-                    )}
-            </Row>
-        </Container>
-
+        <>  
+            <h1>Latest News Stories From World Athletics:</h1>
+            <Container className="fading-in">
+                <Row className="flex">
+                    {newsFeed.length
+                        ? (
+                            <>
+                                {newsFeed.map(n => (
+                                    <div className="card card-custom" style={{ width: "14rem", margin: "1rem" }} key={n.guid}>
+                                        <a href={n.link} target="_blank" style={{ width: "100%", height: "100%" }}>
+                                            <img src={n.image} className="card-img-top"></img>
+                                            <div className="card-body">
+                                                <p className="card-text" style={{color: "#72A276"}}>{n.title}</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                ))
+                                }
+                            </>
+                        ) : (
+                            <p className="alert alert-info">Sorry, no news stories were found! Check back later... </p>
+                        )}
+                </Row>
+            </Container>
+        </>
     )
 }
 
