@@ -22,6 +22,7 @@ interface removeUser {
 }
 
 interface getUser {
+    id: number,
     email: string,
     username: string,
     role: Role
@@ -105,7 +106,7 @@ export default class Users {
     static async get(username: string): Promise<getUser> {
         const user = await prisma.user.findUnique({
             where: { username: username },
-            select: { email: true, username: true, role: true, profile: true }
+            select: { id: true, email: true, username: true, role: true, profile: true }
         })
         if (!user) throw new NotFoundError(`User Not Found: ${username}`);
 

@@ -2,6 +2,7 @@ import express from "express"
 import createToken from "../helpers/tokens"
 import { BadRequestError } from "../expressError"
 import Users from "../models/user"
+import Profiles from "../models/profile"
 
 const router = express.Router()
 
@@ -27,7 +28,20 @@ router.post("/token", async (req, res, next) => {
  */
 router.post("/register", async (req, res, next) => {
     try {
-        const newUser = await Users.register({ ...req.body })
+       const { username, password, email, age, bio, firstName, lastName } = req.body
+        const newUser = await Users.register({
+            username: username, 
+            password: password, 
+            email: email
+        })
+        const createdUser = await Users.get(newUser.username)
+        await Profiles.create({
+            age: Number(age),
+            firstName: firstName,
+            lastName: lastName,
+            bio: bio,
+            userId: createdUser.id
+        })
         const token = createToken(newUser)
         return res.status(201).json({ token })
     } catch (err) {
