@@ -25,7 +25,7 @@ const NavBar = ({ logout, showToast }) => {
             <NavDropdown.Item className="dropdown-item" href="/create_activity">Log Activity</NavDropdown.Item>
             <NavDropdown.Item className="dropdown-item" href="/running_log">View Running Log</NavDropdown.Item>
           </NavDropdown>
-          <Nav.Link href="/" onClick={logout} >Logout</Nav.Link>
+          <Nav.Link href="/" onClick={logout}>Logout</Nav.Link>
         </Nav>
       </Navbar>
     )

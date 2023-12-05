@@ -64,9 +64,15 @@ function App() {
     }
   }
 
-  const logout = () => {
-    setCurrentUser(null);
-    setToken(null);
+  const logout = async () => {
+    try {
+      setCurrentUser(null);
+      setToken(null);
+      showToast("success", "Successfully logged out.")
+    } catch (error) {
+      console.error("Logout failed", error);
+      showToast("error", "ERROR: Failed to logout.");
+    }
   }
 
   const handleToastClose = (id) => {
@@ -87,19 +93,19 @@ function App() {
 
   return (
     <>
-    <Background />
-    <div className="App">
-      <BrowserRouter>
-        <UserContext.Provider value={{ currentUser, setCurrentUser }}>
-          <NavBar logout={logout} />
-          <div className="m-5 fading-in">
-            <ToastComponent toasts={toasts} handleToastClose={handleToastClose} />
-            {/* <Button className="btn-custom" onClick={() => showToast("its working... its working!")}>Show Toast</Button> */}
-            <Routing login={login} signup={signup} handleToastClose={handleToastClose} showToast={showToast}/>
-          </div>
-        </UserContext.Provider>
-      </BrowserRouter>
-    </div>
+      <Background />
+      <div className="App">
+        <BrowserRouter>
+          <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+            <NavBar logout={logout} />
+            <div className="m-5 fading-in">
+              <ToastComponent toasts={toasts} handleToastClose={handleToastClose} />
+              {/* <Button className="btn-custom" onClick={() => showToast("its working... its working!")}>Show Toast</Button> */}
+              <Routing login={login} signup={signup} handleToastClose={handleToastClose} showToast={showToast} />
+            </div>
+          </UserContext.Provider>
+        </BrowserRouter>
+      </div>
     </>
   )
 }
