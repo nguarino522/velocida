@@ -42,11 +42,11 @@ function App() {
     try {
       let token = await VelocidaApi.login(loginData);
       setToken(token);
-      showToast("Successfully logged in.")
+      showToast("success", "Successfully logged in.")
       return { success: true };
     } catch (errors) {
       console.error("login failed", errors);
-      showToast("ERROR: Failed to login.")
+      showToast("error", "ERROR: Failed to login.")
       return { success: false, errors };
     }
   }
@@ -55,11 +55,11 @@ function App() {
     try {
       let token = await VelocidaApi.signup(signupData);
       setToken(token);
-      showToast("Successfully created account.")
+      showToast("success", "Successfully created account.")
       return { success: true };
     } catch (errors) {
       console.error("signup failed", errors);
-      showToast("ERROR: Failed to create account.")
+      showToast("error", "ERROR: Failed to create account.")
       return { success: false, errors };
     }
   }
@@ -73,9 +73,10 @@ function App() {
     setToasts((prevToasts) => prevToasts.filter((toast) => toast.id !== id));
   }
 
-  const showToast = (message) => {
+  const showToast = (type, message) => {
     const newToast = {
       id: new Date().getTime(),
+      type,
       message,
     }
     console.log(newToast)

@@ -5,7 +5,7 @@ import VelocidaApi from '../VelocidaApi';
 import ToastComponent from "./ToastComponent";
 import { useNavigate } from "react-router-dom";
 
-const ProfileForm = ({showToast}) => {
+const ProfileForm = ({ showToast }) => {
     const { currentUser, setCurrentUser } = useContext(UserContext);
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -21,9 +21,9 @@ const ProfileForm = ({showToast}) => {
         evt.preventDefault();
 
         try {
-            await VelocidaApi.login({username: currentUser.username, password: formData.password})
+            await VelocidaApi.login({ username: currentUser.username, password: formData.password })
         } catch (error) {
-            showToast(error)
+            showToast("error", error)
             return;
         }
 
@@ -40,10 +40,10 @@ const ProfileForm = ({showToast}) => {
         try {
             updatedProfile = await VelocidaApi.saveProfile(currentUser.profile.id, profileData);
             updatedUser = await VelocidaApi.getCurrentUser(username);
-            showToast("Updated successfully.")
+            showToast("success", "Updated successfully.")
         } catch (errors) {
             setFormErrors(errors);
-            showToast({formErrors});
+            showToast("error", { formErrors });
             return;
         }
 
@@ -118,7 +118,7 @@ const ProfileForm = ({showToast}) => {
                     </form>
                 </div>
             </div>
-            
+
         </div>
     )
 
