@@ -93,8 +93,8 @@ function App() {
           <NavBar logout={logout} />
           <div className="m-5 fading-in">
             <ToastComponent toasts={toasts} handleToastClose={handleToastClose} />
-            <Button className="btn-custom" onClick={() => showToast("its working... its working!")}>Show Toast</Button>
-            <Routing login={login} signup={signup} />
+            {/* <Button className="btn-custom" onClick={() => showToast("its working... its working!")}>Show Toast</Button> */}
+            <Routing login={login} signup={signup} handleToastClose={handleToastClose} showToast={showToast}/>
           </div>
         </UserContext.Provider>
       </BrowserRouter>

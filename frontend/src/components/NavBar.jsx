@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom"
 import UserContext from "../UserContext";
 import "./NavBar.css"
@@ -19,8 +19,13 @@ const NavBar = ({ logout, showToast }) => {
           <NavLink className="nav-link" to="/forum">Forum</NavLink>
         </Nav>
         <Nav variant="pills" className="ms-auto p-3">
-          <Nav.Link href="/profile">Profile</Nav.Link>
-          <Nav.Link href="/" onClick={logout} >Logout {currentUser.username}</Nav.Link>
+          <NavDropdown title={`Hello, ${currentUser.username}`} id="basic-nav-dropdown" className="dropdown-main">
+            <NavDropdown.Item className="dropdown-item" href={`/profile/${currentUser.profile.id}`}>View Profile</NavDropdown.Item>
+            <NavDropdown.Item className="dropdown-item" href="/edit_profile">Edit Profile</NavDropdown.Item>
+            <NavDropdown.Item className="dropdown-item" href="/create_activity">Log Activity</NavDropdown.Item>
+            <NavDropdown.Item className="dropdown-item" href="/running_log">View Running Log</NavDropdown.Item>
+          </NavDropdown>
+          <Nav.Link href="/" onClick={logout} >Logout</Nav.Link>
         </Nav>
       </Navbar>
     )

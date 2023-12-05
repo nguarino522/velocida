@@ -7,8 +7,10 @@ import Homepage from "../components/Homepage"
 import News from "../components/News"
 import Forum from "../components/Forum"
 import Dashboard from "../components/Dashboard"
+import ProfileForm from "../components/ProfileForm";
+import ProfileView from "../components/ProfileView"
 
-const Routing = ({ login, signup }) => {
+const Routing = ({ login, signup, handleToastClose, showToast }) => {
     return (
         <div>
             <Routes>
@@ -18,8 +20,9 @@ const Routing = ({ login, signup }) => {
                 <Route path="/signup" element={<SignupForm signup={signup} />} />
                 <Route path="/news" element={<News />} />
                 <Route path="/forum" element={<Forum />} />
-                {/* <Route path="/forum" element={<PrivateRoute><CompanyList /></PrivateRoute>} />
-                <Route path="/profile" element={<PrivateRoute><ProfileForm /></PrivateRoute>}/> */}
+                {/* <Route path="/forum" element={<PrivateRoute><CompanyList /></PrivateRoute>} /> */}
+                <Route path="/edit_profile" element={<PrivateRoute><ProfileForm handleToastClose={handleToastClose} showToast={showToast} /></PrivateRoute>}/>
+                <Route path="/profile/:id" element={<ProfileView />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Routes>
         </div>

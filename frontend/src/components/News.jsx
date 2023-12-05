@@ -20,7 +20,6 @@ const News = () => {
         let data = await VelocidaApi.getNews()
         let parser = new XMLParser();
         let stories = await parser.parse(data)
-        console.log(stories.rss.channel.item)
         setNewsFeed(stories.rss.channel.item)
     }
 

@@ -23,3 +23,12 @@ img {
 .nav-link {
     margin: 5px;
 }
+
+.dropdown-item:hover {
+    background: #A0EEC0 !important;
+}
+
+.dropdown-toggle.show {
+    color: #d4e9e0 !important;
+    background-color: #666B6A !important;
+}

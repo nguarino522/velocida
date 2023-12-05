@@ -1,6 +1,7 @@
 import express from "express"
 import Profiles from "../models/profile"
 //import { ensureUserProfileSetup } from "../middleware/profile"
+import { ensureCorrectUserOrAdmin, ensureAdmin } from "../middleware/auth"
 
 const router = express.Router()
 
@@ -22,7 +23,7 @@ router.get("/:id", async (req, res, next) => {
     }
 })
 
-router.patch("/:id", async (req, res, next) => {
+router.patch("/:id", ensureCorrectUserOrAdmin, async (req, res, next) => {
     try {
         const profile = await Profiles.update(Number(req.params.id), req.body)
         return res.json({ profile })

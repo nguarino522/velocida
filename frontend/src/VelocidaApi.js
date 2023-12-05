@@ -78,11 +78,17 @@ class VelocidaApi {
     return res.token;
   }
 
-  /** Save user profile page. */
+  /** Save user profile. */
   static async saveProfile(username, data) {
-    let res = await this.request(`user/${username}`, data, "patch");
-    return res.user;
+    let res = await this.request(`profile/${username}`, data, "patch");
+    return res.profile;
   }
+
+    /** Get user profile. */
+    static async getProfile(id) {
+      let res = await this.request(`profile/${id}`);
+      return res.profile;
+    }
 
   /** Get the current user. */
   static async getCurrentUser(username) {
