@@ -1,9 +1,10 @@
 import express from "express"
 import Activities from "../models/activity"
+import { ensureCorrectUserOrAdmin, ensureAdmin, ensureCorrectUserOrAdminActivity } from "../middleware/auth"
 
 const router = express.Router()
 
-router.post("/", async (req, res, next) => {
+router.post("/", ensureCorrectUserOrAdminActivity, async (req, res, next) => {
     try {
         const activity = await Activities.create(req.body)
         return res.status(201).json({ activity })
@@ -15,25 +16,25 @@ router.post("/", async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
     try {
         const activity = await Activities.get(Number(req.params.id))
-        return res.status(201).json({ activity })
+        return res.json({ activity })
     } catch (err) {
         return next(err)
     }
 })
 
-router.patch("/:id", async (req, res, next) => {
+router.patch("/:id", ensureCorrectUserOrAdminActivity, async (req, res, next) => {
     try {
         const activity = await Activities.update(Number(req.params.id), req.body)
-        return res.status(201).json({ activity })
+        return res.json({ activity })
     } catch (err) {
         return next(err)
     }
 })
 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", ensureCorrectUserOrAdminActivity, async (req, res, next) => {
     try {
-        const follow = await Activities.remove(Number(req.params.id))
-        return res.status(201).json({ follow })
+        const activity = await Activities.remove(Number(req.params.id))
+        return res.json({ deleted: activity })
     } catch (err) {
         return next(err)
     }

@@ -30,7 +30,7 @@ const LoginForm = ({ login }) => {
       <div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
         <h3 className="mb-3">Log In</h3>
         <div className="card">
-          <div className="card-body">
+          <div className="card-body formbackground">
             <form onSubmit={handleSubmit}>
               <div className="form-group m-2">
                 <label>Username</label>

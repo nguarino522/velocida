@@ -1,8 +1,6 @@
 import React, { useState, useContext } from "react";
-import Alert from "./Alert";
 import UserContext from "../UserContext";
 import VelocidaApi from '../VelocidaApi';
-import ToastComponent from "./ToastComponent";
 import { useNavigate } from "react-router-dom";
 
 const ProfileForm = ({ showToast }) => {
@@ -62,13 +60,15 @@ const ProfileForm = ({ showToast }) => {
 
     return (
         <div className="col-md-6 col-lg-4 offset-md-3 offset-lg-4">
-            <h3>Profile</h3>
             <div className="card">
-                <div className="card-body">
+                <div className="card-body formbackground">
+                    <h3>Edit Profile:</h3>
                     <form>
                         <div className="form-group m-2">
-                            <label>Username</label>
-                            <p className="form-control-plaintext">{formData.username}</p>
+                            <label>Username: 
+                            <p className="form-control-plaintext alert alert-info">{formData.username}</p>
+                            </label>
+                            
                         </div>
                         <div className="form-group m-2">
                             <label>First Name:</label>
@@ -110,7 +110,7 @@ const ProfileForm = ({ showToast }) => {
 
                         <button
                             type="submit"
-                            className="btn btn-custom btn-block mt-4"
+                            className="btn btn-custom btn-primary btn-block mt-4"
                             onClick={handleSubmit}
                         >
                             Save Changes

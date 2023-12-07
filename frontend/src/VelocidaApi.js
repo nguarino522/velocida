@@ -95,6 +95,18 @@ class VelocidaApi {
     let res = await this.request(`user/${username}`);
     return res.user;
   }
+
+  /** Create activity. */
+  static async createActivity(data) {
+    let res = await this.request("activity", data, "post")
+    return res.activity;
+  }
+
+   /** Get user profile. */
+   static async getActivity(id) {
+    let res = await this.request(`activity/${id}`);
+    return res.activity;
+  }
  
 }
 

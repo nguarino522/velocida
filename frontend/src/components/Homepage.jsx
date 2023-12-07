@@ -9,7 +9,7 @@ const Homepage = () => {
         <div className="Homepage fading-in">
             <div className="container text-center">
                 <h1 className="mb-4 font-weight-bold">Velocida</h1>
-                <p className="lead">Your go to social site for running news and activity logging! </p>
+                <p className="lead">Your go to social site for running news and activity logging!</p>
                 {currentUser
                     ? <><h2>
                         Welcome Back, {currentUser.firstName || currentUser.username}!

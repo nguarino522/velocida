@@ -11,8 +11,10 @@ import Row from 'react-bootstrap/Row';
 
 const News = () => {
     const [newsFeed, setNewsFeed] = useState([])
+    const [newsLoaded, setNewsLoaded] = useState(false);
 
     useEffect(() => {
+        setNewsLoaded(false)
         getNewsFeed()
     }, [])
 
@@ -21,9 +23,10 @@ const News = () => {
         let parser = new XMLParser();
         let stories = await parser.parse(data)
         setNewsFeed(stories.rss.channel.item)
+        setNewsLoaded(true)
     }
 
-    if (!newsFeed) return <LoadingSpinner />;
+    if (!newsLoaded) return <LoadingSpinner />;
 
     return (
         <>  

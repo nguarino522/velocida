@@ -65,7 +65,7 @@ export const ensureCorrectUserOrAdmin = (req: Request, res: Response, next: Next
 }
 
 /** Middleware to use when they must provide a valid token & be user matching
- *  username provided as route param or admin.
+ *  the same profile provided as route param or admin.
  *  If not, raises Unauthorized.
  */
 export const ensureCorrectUserOrAdminProfile = (req: Request, res: Response, next: NextFunction) => {
@@ -80,3 +80,17 @@ export const ensureCorrectUserOrAdminProfile = (req: Request, res: Response, nex
     }
 }
 
+/** Middleware to use when they must be logged in as same user creating the activity or an admin.
+ * If not, raises Unauthorized.
+ */
+export const ensureCorrectUserOrAdminActivity = (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const user = res.locals.user
+        if (!(user && (res.locals.user.role === "ADMIN" || user.id === req.params.ownerId))) {
+            throw new UnauthorizedError()
+        }
+        return next()
+    } catch (err) {
+        return next(err)
+    }
+}
