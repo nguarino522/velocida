@@ -1,9 +1,6 @@
 import { Thread } from "@prisma/client"
 import prisma from "../prisma"
 import { NotFoundError } from "../expressError"
-interface createThread {
-
-}
 
 export default class Threads {
     /**
@@ -54,4 +51,33 @@ export default class Threads {
 
         return thread
     }
+
+    /**
+     * get paginated list of threads
+     * @param pageId 
+     */
+    static async getAll(skipNum: number) {
+        const threads = await prisma.thread.findMany({
+            skip: skipNum,
+            take: 20,
+            orderBy: {
+                updatedAt: 'desc'
+            },
+            include: {
+                author: {
+                    select: {
+                        user: {
+                            select: {
+                                username: true
+                            }
+                        }
+                    },
+                },
+                posts: true
+            },
+        });
+    
+        return threads;
+    }
+    
 }

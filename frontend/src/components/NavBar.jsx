@@ -16,7 +16,7 @@ const NavBar = ({ logout }) => {
           <NavLink className="nav-link" to="/">Home</NavLink>
           <NavLink className="nav-link" to="/dashboard">Dashboard</NavLink>
           <NavLink className="nav-link" to="/news">News</NavLink>
-          <NavLink className="nav-link" to="/forum">Forum</NavLink>
+          <NavLink className="nav-link" to="/forum/1">Forum</NavLink>
         </Nav>
         <Nav variant="pills" className="ms-auto p-3">
         <Form className="d-flex">
@@ -28,7 +28,7 @@ const NavBar = ({ logout }) => {
             />
             <Button className="btn-custom" variant="outline-success">Search</Button>
           </Form>
-          <NavDropdown title={`Hello, ${currentUser.username}`} id="basic-nav-dropdown" className="dropdown-main">
+          <NavDropdown title={`Hello, ${currentUser.profile.firstName}`} id="basic-nav-dropdown" className="dropdown-main">
             <NavDropdown.Item className="dropdown-item" href={`/profile/${currentUser.profile.id}`}>View Profile</NavDropdown.Item>
             <NavDropdown.Item className="dropdown-item" href="/edit_profile">Edit Profile</NavDropdown.Item>
             <NavDropdown.Item className="dropdown-item" href="/log_activity">Log Activity</NavDropdown.Item>
@@ -47,7 +47,7 @@ const NavBar = ({ logout }) => {
         <Nav variant="pills" className="ms-right p-3">
           <NavLink className="nav-link" to="/">Home</NavLink>
           <NavLink className="nav-link" to="/news">News</NavLink>
-          <NavLink className="nav-link" to="/forum">Forum</NavLink>
+          <NavLink className="nav-link" to="/forum/1">Forum</NavLink>
         </Nav>
         <Nav variant="pills" className="ms-auto p-3" activeKey={window.location.pathname}>
         <Form className="d-flex">

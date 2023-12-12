@@ -84,11 +84,11 @@ class VelocidaApi {
     return res.profile;
   }
 
-    /** Get user profile. */
-    static async getProfile(id) {
-      let res = await this.request(`profile/${id}`);
-      return res.profile;
-    }
+  /** Get user profile. */
+  static async getProfile(id) {
+    let res = await this.request(`profile/${id}`);
+    return res.profile;
+  }
 
   /** Get the current user. */
   static async getCurrentUser(username) {
@@ -102,12 +102,18 @@ class VelocidaApi {
     return res.activity;
   }
 
-   /** Get user profile. */
-   static async getActivity(id) {
+  /** Get user profile. */
+  static async getActivity(id) {
     let res = await this.request(`activity/${id}`);
     return res.activity;
   }
- 
+
+  /** Get list of threads paginated. */
+  static async getThreads(pageNum) {
+    let res = await this.request(`thread/${pageNum}`)
+    return res.threads;
+  }
+
 }
 
 
