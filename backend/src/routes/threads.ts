@@ -13,7 +13,7 @@ router.post("/", async (req, res, next) => {
     }
 })
 
-router.get("/:pageNum", async (req, res, next) => {
+router.get("/forum/:pageNum", async (req, res, next) => {
     try {
         console.log(req.params.pageNum)
         const threads = await Threads.getAll(Number(req.params.pageNum))

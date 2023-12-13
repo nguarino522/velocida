@@ -11,6 +11,8 @@ import ProfileForm from "../components/ProfileForm";
 import ProfileView from "../components/ProfileView"
 import ActivityForm from "../components/ActivityForm"
 import ActivityView from "../components/ActivityView"
+import Thread from "../components/Thread"
+
 const Routing = ({ login, signup, handleToastClose, showToast }) => {
     return (
         <div>
@@ -22,6 +24,7 @@ const Routing = ({ login, signup, handleToastClose, showToast }) => {
                 <Route path="/news" element={<News />} />
                 <Route path="/forum/:page_num" element={<Forum />} />
                 {/* <Route path="/forum" element={<PrivateRoute><CompanyList /></PrivateRoute>} /> */}
+                <Route path="/thread/:id" element={<Thread />} />
                 <Route path="/edit_profile" element={<PrivateRoute><ProfileForm handleToastClose={handleToastClose} showToast={showToast} /></PrivateRoute>}/>
                 <Route path="/profile/:id" element={<ProfileView />} />
                 <Route path="/log_activity" element={<ActivityForm showToast={showToast} />} />

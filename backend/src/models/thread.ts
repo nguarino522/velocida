@@ -31,7 +31,24 @@ export default class Threads {
             where: { id: threadId },
             include: {
                 author: true,
-                posts: true
+                posts: {
+                    select: {
+                        id: true,
+                        createdAt: true,
+                        updatedAt: true,
+                        content: true,
+                        parentPostId: true,
+                        author: {
+                            select: {
+                                user: {
+                                    select: {
+                                        username: true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         })
         if (!thread) throw new NotFoundError(`Thread Not Found: ${threadId}`);

@@ -110,8 +110,14 @@ class VelocidaApi {
 
   /** Get list of threads paginated. */
   static async getThreads(pageNum) {
-    let res = await this.request(`thread/${pageNum}`)
+    let res = await this.request(`thread/forum/${pageNum}`)
     return res.threads;
+  }
+
+  /** Get thread by id. */
+  static async getThread(id) {
+    let res = await this.request(`thread/${id}`)
+    return res.thread;
   }
 
 }

@@ -28,7 +28,7 @@ const Forum = () => {
 
         fetchThreads();
         setThreadsLoaded(false)
-    }, []);
+    }, [page_num]);
 
     const convertToTimeSince = (time) => {
         const timeAgo = moment(time).fromNow();
@@ -53,7 +53,7 @@ const Forum = () => {
                 <tbody>
                     {threads.map((thread) => (
                         <tr key={thread.id}>
-                            <td>{thread.title}</td>
+                            <td><a className="card-text" style={{color: "#72A276"}} href={`/thread/${thread.id}`}>{thread.title}</a></td>
                             <td>{Object.keys(thread.posts).length}</td>
                             <td>{thread.author.user.username}</td>
                             <td>{convertToTimeSince(thread.updatedAt)}</td>
