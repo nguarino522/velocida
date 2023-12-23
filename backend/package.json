@@ -8,7 +8,7 @@
     "prestart": "npm run build",
     "start": "node dist/server.js",
     "predev": "npm run build",
-    "dev": "npx tsc -w & nodemon dist/server.js",
+    "dev": "npx tsc -w & nodemon dist/server.js --delay 2",
     "test": "jest"
   },
   "keywords": [],

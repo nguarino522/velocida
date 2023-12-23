@@ -120,6 +120,29 @@ class VelocidaApi {
     return res.thread;
   }
 
+  /** Create a vote. */
+  static async createVote(data) {
+    let res = await this.request("vote", data, "post")
+    return res.vote;
+  }
+
+  /** Delete a vote. */
+  static async removeVote(id) {
+    let res = await this.request(`vote/${id}`, {}, "delete")
+    return res;
+  }
+
+  /** Toggle a vote. */
+  static async toggleVote(id){
+    let res = await this.request(`vote/${id}`, {}, "patch")
+    return res.vote;
+  }
+
+  /** Get a post. */
+  static async getPost(id) {
+    let res = await this.request(`post/${id}`)
+    return res.post;
+  }
 }
 
 

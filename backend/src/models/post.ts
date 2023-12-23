@@ -1,5 +1,6 @@
 import { Post } from "@prisma/client"
 import prisma from "../prisma"
+import { NotFoundError } from "../expressError"
 
 export default class Posts {
     /**
@@ -30,6 +31,24 @@ export default class Posts {
         const post = await prisma.post.delete({
             where: { id: postId }
         })
+
+        return post
+    }
+
+    /**
+     * get post by id
+     * @param postId 
+     * @returns {Promise<Post>}
+     */
+    static async get(postId: number): Promise<Post> {
+        const post = await prisma.post.findUnique({
+            where: { id: postId },
+            include: {
+                votes: true
+            }
+        })
+
+        if (!post) throw new NotFoundError(`Post Not Found: ${postId}`);
 
         return post
     }

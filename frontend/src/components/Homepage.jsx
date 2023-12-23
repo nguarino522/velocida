@@ -14,16 +14,20 @@ const Homepage = () => {
                     ? <><h2>
                         Welcome Back, {currentUser.firstName || currentUser.username}!
                     </h2>
-                    <p>
-                        <Link className="btn btn-success btn-custom font-weight-bold m-2"
-                            to="/news">
-                            News
-                        </Link>
-                        <Link className="btn btn-success btn-custom font-weight-bold m-2"
-                            to="/dashboard">
-                            Dashboard
-                        </Link>
-                    </p>
+                        <p>
+                            <Link className="btn btn-success btn-custom font-weight-bold m-2"
+                                to="/news">
+                                News
+                            </Link>
+                            <Link className="btn btn-success btn-custom font-weight-bold m-2"
+                                to="/dashboard">
+                                Dashboard
+                            </Link>
+                            <Link className="btn btn-success btn-custom font-weight-bold m-2"
+                                to="/forum/1">
+                                Forum
+                            </Link>
+                        </p>
                     </>
                     : (
                         <p>

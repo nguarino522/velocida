@@ -21,4 +21,13 @@ router.delete("/:id", async (req, res, next) => {
     }
 })
 
+router.get("/:id", async (req, res, next) => {
+    try {
+        const post = await Posts.get(Number(req.params.id))
+        return res.json({ post })
+    } catch (err) {
+        return next(err)
+    }
+})
+
 export default router

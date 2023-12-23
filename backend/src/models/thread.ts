@@ -38,13 +38,16 @@ export default class Threads {
                         updatedAt: true,
                         content: true,
                         parentPostId: true,
+                        votes: true,
                         author: {
                             select: {
                                 user: {
                                     select: {
                                         username: true
                                     }
-                                }
+                                },
+                                firstName: true,
+                                lastName: true
                             }
                         }
                     }

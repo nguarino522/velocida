@@ -11,6 +11,7 @@ import VelocidaApi from './VelocidaApi';
 import ToastComponent from './components/ToastComponent';
 import { Button } from 'react-bootstrap';
 import Background from './components/Background';
+import Footer from './components/Footer';
 
 export const TOKEN_STORAGE_ID = "jobly-token";
 
@@ -103,6 +104,7 @@ function App() {
               {/* <Button className="btn-custom" onClick={() => showToast("its working... its working!")}>Show Toast</Button> */}
               <Routing login={login} signup={signup} handleToastClose={handleToastClose} showToast={showToast} />
             </div>
+            <Footer />
           </UserContext.Provider>
         </BrowserRouter>
       </div>

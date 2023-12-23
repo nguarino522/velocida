@@ -4,10 +4,10 @@ import { NotFoundError } from "../expressError";
 
 export default class Votes {
 	/**
-		* create a vote 
-		* @param requestBody 
-		* @returns {Promise<Vote>}
-		*/
+	* create a vote 
+	* @param requestBody 
+	* @returns {Promise<Vote>}
+	*/
 	static async create(requestBody: Vote): Promise<Vote> {
 		const { postId, authorId, upvote } = requestBody
 		const vote = await prisma.vote.create({
@@ -22,10 +22,10 @@ export default class Votes {
 	}
 
 	/**
-		 * delete vote by id
-		 * @param postId 
-		 * @returns {Promise<Vote>}
-		 */
+	 * delete vote by id
+	 * @param postId 
+	 * @returns {Promise<Vote>}
+	 */
 	static async remove(voteId: number): Promise<Vote> {
 		const vote = await prisma.vote.delete({
 			where: { id: voteId }
@@ -35,11 +35,11 @@ export default class Votes {
 	}
 
 	/**
-		 * get vote by id
-		 * @param voteId 
-		 * @returns {Promise<Vote>}
-		 * @throws {NotFoundError}
-		 */
+	 * get vote by id
+	 * @param voteId 
+	 * @returns {Promise<Vote>}
+	 * @throws {NotFoundError}
+	 */
 	static async get(voteId: number): Promise<Vote> {
 		const vote = await prisma.vote.findUnique({
 			where: { id: voteId }

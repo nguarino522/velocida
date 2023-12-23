@@ -1,0 +1,46 @@
+/* Footer.css */
+.Container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.Content {
+    flex-grow: 1;
+}
+
+.Footer {
+    width: 100%;
+    background-color: #666B6A;
+    color: white;
+    padding: 16px;
+    text-align: center;
+    margin-top: auto;
+}
+
+.FooterContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.SocialIcons {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.SocialIcons a {
+    color: white;
+    font-size: 24px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.SocialIcons a:hover {
+    color: #8AE9C1;
+}
+
+.name {
+    color: #8AE9C1;
+}

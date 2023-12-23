@@ -31,13 +31,17 @@ router.get("/:id", async (req, res, next) => {
 })
 
 router.patch("/:id", async (req, res, next) => {
-  const vote = await Votes.get(Number(req.params.id))
-  if (vote.upvote) {
-    const updated_vote = await Votes.toggle(Number(req.params.id), false)
-    return updated_vote
-  } else {
-    const updated_vote = await Votes.toggle(Number(req.params.id), true)
-    return updated_vote
+  try {
+    const vote = await Votes.get(Number(req.params.id))
+    if (vote.upvote) {
+      const vote = await Votes.toggle(Number(req.params.id), false)
+      return res.json({ vote })
+    } else {
+      const vote = await Votes.toggle(Number(req.params.id), true)
+      return res.json({ vote })
+    }
+  } catch (err) {
+    return next(err)
   }
 })
 
