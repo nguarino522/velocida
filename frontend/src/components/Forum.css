@@ -1,0 +1,16 @@
+.pagination-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px; /* Adjust as needed */
+  }
+  
+  .button-container {
+    display: flex;
+    gap: 10px; /* Adjust as needed for the space between buttons */
+  }
+  
+  .page-number {
+    font-weight: bold;
+  }
+  

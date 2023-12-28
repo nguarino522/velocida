@@ -104,6 +104,8 @@ model Post {
   threadId     Int
   thread       Thread   @relation(fields: [threadId], references: [id], onDelete: Cascade)
   parentPostId Int?
+  parentPost   Post?    @relation("ChildPosts", fields: [parentPostId], references: [id])
+  childPost    Post[]   @relation("ChildPosts")
   votes        Vote[]
 }
 

@@ -3,11 +3,13 @@
   background-color: #8ae9c19c;
   border: 1px solid #72a276;
   border-radius: 8px;
-  margin-bottom: 24px; /* Adjust the margin-bottom as needed */
+  margin-bottom: 24px;
+  /* Adjust the margin-bottom as needed */
 }
 
 .Sidebar {
-  width: 240px; /* Adjust the width as needed */
+  width: 240px;
+  /* Adjust the width as needed */
   padding: 16px;
   box-sizing: border-box;
   /* background-color: #a0eec0; */
@@ -15,7 +17,8 @@
   border: 1px solid #72a276;
   color: white;
   border-radius: 8px;
-  display: flex; /* Align children horizontally */
+  display: flex;
+  /* Align children horizontally */
   flex-direction: column;
   align-items: center;
 }
@@ -24,12 +27,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%; /* Adjust the width as needed */
+  width: 100%;
+  /* Adjust the width as needed */
 }
 
 .VoteBox {
   display: flex;
-  flex-direction: row; /* Align VoteBoxes horizontally */
+  flex-direction: row;
+  /* Align VoteBoxes horizontally */
   align-items: center;
   margin-top: 16px;
 }
@@ -39,32 +44,42 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
-  transition: color 0.3s, transform 0.3s; /* Add transition for color and scale */
+  transition: color 0.3s, transform 0.3s;
+  /* Add transition for color and scale */
   color: #666b6a;
 }
 
 .VoteBox button:hover {
-  color: #4CAF50; /* Change color to green on hover for thumbs-up */
-  transform: scale(1.2); /* Scale up on hover */
+  color: #4CAF50;
+  /* Change color to green on hover for thumbs-up */
+  transform: scale(1.2);
+  /* Scale up on hover */
 }
 
 .VoteBox button:hover:nth-child(2) {
-  color: #FF0000; /* Change color to red on hover for thumbs-down */
-  transform: scale(1.2); /* Scale up on hover */
+  color: #FF0000;
+  /* Change color to red on hover for thumbs-down */
+  transform: scale(1.2);
+  /* Scale up on hover */
 }
 
-.VoteBox button + button {
-  margin-left: 8px; /* Add margin between icons */
+.VoteBox button+button {
+  margin-left: 8px;
+  /* Add margin between icons */
 }
 
 .VoteBox button.Voted {
-  color: #4CAF50; /* Change color to green for thumbs-up when voted */
-  transform: scale(1.2); /* Scale up when voted */
+  color: #4CAF50;
+  /* Change color to green for thumbs-up when voted */
+  transform: scale(1.2);
+  /* Scale up when voted */
 }
 
 .VoteBox button.Voted:nth-child(2) {
-  color: #FF0000; /* Change color to red for thumbs-down when voted */
-  transform: scale(1.2); /* Scale up when voted */
+  color: #FF0000;
+  /* Change color to red for thumbs-down when voted */
+  transform: scale(1.2);
+  /* Scale up when voted */
 }
 
 .VoteCountBox {
@@ -78,6 +93,12 @@
 .PostContent {
   flex-grow: 1;
   padding: 16px;
+  width: 70%;
+}
+
+.PostContent p {
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .Post.Voted .VoteBox button {
@@ -90,16 +111,36 @@
 }
 
 .ReplyButton {
-  background-color: #86cd82;
+  background-color: #666b6a;
   color: white;
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   margin-top: 8px;
-  align-self: flex-end; /* Move the button to the bottom right */
+  align-self: flex-end;
+  /* Move the button to the bottom right */
 }
 
 .ReplyButton:hover {
   background-color: #72a276;
+}
+
+.Post {
+  position: relative;
+}
+
+.RepliedToBox {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 8px;
+  padding: 8px;
+  background-color: #666b6a;
+  border-radius: 4px;
+  color: white;
+}
+
+.RepliedToBox p {
+  margin: 0;
 }

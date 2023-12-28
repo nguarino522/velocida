@@ -8,14 +8,12 @@ import UserContext from "../UserContext";
 
 const Post = ({ post, showToast }) => {
   const { currentUser } = useContext(UserContext);
-  const [voted, setVoted] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [upvotes, setUpvotes] = useState(0);
   const [downvotes, setDownvotes] = useState(0);
   const [currentUserVote, setCurrentUserVote] = useState(null);
 
   useEffect(() => {
-    // Set initial vote counts
     if (post.votes) {
       const upvotesCount = post.votes.filter((vote) => vote.upvote).length;
       const downvotesCount = post.votes.filter((vote) => !vote.upvote).length;
@@ -23,7 +21,6 @@ const Post = ({ post, showToast }) => {
       setDownvotes(downvotesCount);
     }
 
-    // Check for a vote from current user
     const userVote = post.votes.find((v) => v.authorId === currentUser.profile.id);
     setCurrentUserVote(userVote);
   }, [post.votes]);
@@ -41,7 +38,6 @@ const Post = ({ post, showToast }) => {
       } else {
         if (currentUserVote.upvote !== upvote) {
           const updatedVote = await VelocidaApi.toggleVote(currentUserVote.id);
-          console.log('Updated vote after toggle:', updatedVote);
           setCurrentUserVote(updatedVote);
         } else {
           await VelocidaApi.removeVote(currentUserVote.id);
@@ -63,7 +59,7 @@ const Post = ({ post, showToast }) => {
   const handleCloseModal = () => setShowModal(false);
 
   return (
-    <div className={`Post ${voted ? 'Voted' : ''}`}>
+    <div className="Post">
       <div className="Sidebar">
         <div className="AuthorVoteBox">
           <div className="AuthorBox">
@@ -89,6 +85,12 @@ const Post = ({ post, showToast }) => {
       <div className="PostContent">
         <p>{post.content}</p>
       </div>
+      {post.parentPost && (
+          <div className="RepliedToBox">
+            <p>Replied to:</p>
+            <p>{post.parentPost.author.user.username}</p>
+          </div>
+        )}
       <button className="ReplyButton" onClick={handleShowModal}>
         <FontAwesomeIcon icon={faReply} /> Reply
       </button>
@@ -96,10 +98,9 @@ const Post = ({ post, showToast }) => {
       <ReplyModal
         show={showModal}
         handleClose={handleCloseModal}
-        handleReplySubmit={(replyContent) => {
-          console.log('Submitting reply:', replyContent);
-          handleCloseModal();
-        }}
+        threadId={post.threadId}
+        parentPostId={post.id}
+        showToast={showToast}
       />
     </div>
   );

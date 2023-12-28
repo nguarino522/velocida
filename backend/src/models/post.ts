@@ -19,6 +19,12 @@ export default class Posts {
             }
         })
         
+        await prisma.thread.update({
+            where: { id: Number(post.threadId) },
+            data: {
+                updatedAt: new Date()
+            }
+        })
         return post
     }
 

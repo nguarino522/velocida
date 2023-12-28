@@ -114,6 +114,12 @@ class VelocidaApi {
     return res.threads;
   }
 
+  /** Create a thread. */
+  static async createThread(data) {
+    let res = await this.request("thread", data, "post")
+    return res.thread
+  }
+
   /** Get thread by id. */
   static async getThread(id) {
     let res = await this.request(`thread/${id}`)
@@ -141,6 +147,12 @@ class VelocidaApi {
   /** Get a post. */
   static async getPost(id) {
     let res = await this.request(`post/${id}`)
+    return res.post;
+  }
+
+  /** Create a post. */
+  static async createPost(data) {
+    let res = await this.request("post", data, "post")
     return res.post;
   }
 }

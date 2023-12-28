@@ -37,7 +37,20 @@ export default class Threads {
                         createdAt: true,
                         updatedAt: true,
                         content: true,
-                        parentPostId: true,
+                        threadId: true,
+                        parentPost: {
+                            select: {
+                                author: {
+                                    select: {
+                                        user: {
+                                            select: {
+                                                username: true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
                         votes: true,
                         author: {
                             select: {
@@ -99,5 +112,4 @@ export default class Threads {
     
         return threads;
     }
-    
 }
