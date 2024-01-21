@@ -1,9 +1,10 @@
 import express from "express"
 import prisma from "../prisma"
+import { ensureAdmin } from "../middleware/auth"
 
 const router = express.Router()
 
-router.get("/", async (req, res) => {
+router.get("/", ensureAdmin, async (req, res) => {
     let dbConnected = false
 
     try {

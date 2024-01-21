@@ -1,10 +1,11 @@
 import express from "express"
 import Posts from "../models/post"
 import Threads from "../models/thread"
+import { ensureAdmin, ensureLoggedIn } from "../middleware/auth"
 
 const router = express.Router()
 
-router.post("/", async (req, res, next) => {
+router.post("/", ensureLoggedIn, async (req, res, next) => {
     try {
         const post = await Posts.create(req.body)
         return res.status(201).json({ post })
@@ -13,7 +14,7 @@ router.post("/", async (req, res, next) => {
     }
 })
 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", ensureAdmin, async (req, res, next) => {
     try {
         const post = await Posts.remove(Number(req.params.id))
         return res.json({ deleted: post })

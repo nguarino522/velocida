@@ -1,11 +1,11 @@
 import express from "express"
 import Profiles from "../models/profile"
 //import { ensureUserProfileSetup } from "../middleware/profile"
-import { ensureCorrectUserOrAdmin, ensureAdmin, ensureCorrectUserOrAdminProfile } from "../middleware/auth"
+import { ensureCorrectUserOrAdmin, ensureAdmin, ensureCorrectUserOrAdminProfile, ensureLoggedIn } from "../middleware/auth"
 
 const router = express.Router()
 
-router.post("/", async (req, res, next) => {
+router.post("/", ensureAdmin, async (req, res, next) => {
     try {
         const profile = await Profiles.create(req.body)
         return res.status(201).json({ profile })
@@ -14,7 +14,7 @@ router.post("/", async (req, res, next) => {
     }
 })
 
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", ensureLoggedIn, async (req, res, next) => {
     try {
         const profile = await Profiles.get(Number(req.params.id))
         return res.json({ profile })

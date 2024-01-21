@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import VelocidaApi from "../VelocidaApi";
 import LoadingSpinner from "./LoadingSpinner";
 import './ProfileView.css';
 import UserContext from "../UserContext";
-import { useNavigate } from "react-router-dom";
 
 const ProfileView = ({ showToast }) => {
     const navigate = useNavigate();

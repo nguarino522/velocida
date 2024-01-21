@@ -1,10 +1,11 @@
 import express from "express"
 import Threads from "../models/thread"
 import { skip } from "node:test"
+import { ensureAdmin, ensureLoggedIn } from "../middleware/auth"
 
 const router = express.Router()
 
-router.post("/", async (req, res, next) => {
+router.post("/", ensureLoggedIn, async (req, res, next) => {
     try {
         const thread = await Threads.create(req.body)
         return res.status(201).json({ thread })
@@ -23,7 +24,7 @@ router.get("/forum/:pageNum", async (req, res, next) => {
     }
 })
 
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", ensureLoggedIn, async (req, res, next) => {
     try {
         const thread = await Threads.get(Number(req.params.id))
         return res.json({ thread })
@@ -32,7 +33,7 @@ router.get("/:id", async (req, res, next) => {
     }
 })
 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", ensureAdmin, async (req, res, next) => {
     try {
         const thread = await Threads.remove(Number(req.params.id))
         return res.json({ deleted: thread })
