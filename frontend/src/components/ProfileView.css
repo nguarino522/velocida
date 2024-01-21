@@ -1,0 +1,39 @@
+.ProfileContainer {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Center items horizontally */
+}
+
+.ProfileItem {
+    margin-bottom: 10px;
+}
+
+.ProfileItem:last-child {
+    margin-bottom: 0;
+}
+
+/* New styles for count divs */
+.CountContainer {
+    display: flex;
+    flex-wrap: wrap;
+    /* Allow items to wrap to the next line if they don't fit */
+    justify-content: center;
+    /* Center items horizontally */
+}
+
+.CountItem {
+    margin: 0 10px;
+    /* Add some space between items */
+}
+
+.follow-btn-div {
+    padding-top: 10px;
+}

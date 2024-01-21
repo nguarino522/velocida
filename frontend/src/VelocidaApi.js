@@ -155,6 +155,18 @@ class VelocidaApi {
     let res = await this.request("post", data, "post")
     return res.post;
   }
+
+  /** Follow a profile. */
+  static async followProfile(data) {
+    let res = await this.request("follow", data, "post")
+    return res.follow
+  }
+
+  /** Unfollow a profile. */
+  static async unfollowProfile(data) {
+    let res = await this.request("follow", data, "delete")
+    return res.follow
+  }
 }
 
 

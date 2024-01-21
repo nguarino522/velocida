@@ -1,5 +1,6 @@
 import express from "express"
 import Posts from "../models/post"
+import Threads from "../models/thread"
 
 const router = express.Router()
 

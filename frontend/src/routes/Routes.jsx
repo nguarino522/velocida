@@ -26,7 +26,7 @@ const Routing = ({ login, signup, handleToastClose, showToast }) => {
                 {/* <Route path="/forum" element={<PrivateRoute><CompanyList /></PrivateRoute>} /> */}
                 <Route path="/thread/:id" element={<Thread showToast={showToast} />} />
                 <Route path="/edit_profile" element={<PrivateRoute><ProfileForm handleToastClose={handleToastClose} showToast={showToast} /></PrivateRoute>}/>
-                <Route path="/profile/:id" element={<ProfileView />} />
+                <Route path="/profile/:id" element={<ProfileView showToast={showToast} />} />
                 <Route path="/log_activity" element={<ActivityForm showToast={showToast} />} />
                 <Route path="/activity/:id" element={<ActivityView />} />
                 <Route path="*" element={<Navigate replace to="/" />} />

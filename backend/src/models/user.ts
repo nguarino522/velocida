@@ -85,7 +85,7 @@ export default class Users {
     * @throws {UnauthorizedError}
     */
     static async authenticate(username: string, password: string): Promise<authUser> {
-        
+
         const user = await prisma.user.findUnique({
             where: { username: username }
         })
@@ -93,7 +93,7 @@ export default class Users {
 
         const isValid = await bcrypt.compare(password, user.password)
         if (!isValid) { throw new UnauthorizedError("Invalid username/password") }
-        
+
         return user
     }
 
@@ -106,7 +106,27 @@ export default class Users {
     static async get(username: string): Promise<getUser> {
         const user = await prisma.user.findUnique({
             where: { username: username },
-            select: { id: true, email: true, username: true, role: true, profile: true }
+            select: { 
+                id: true, 
+                email: true, 
+                username: true, 
+                role: true, 
+                profile: {
+                    select: {
+                        id: true,
+                        age: true,
+                        bio: true,
+                        createdAt: true,
+                        firstName: true,
+                        lastName: true,
+                        updatedAt: true,
+                        userId: true,
+                        followers: true,
+                        following: true
+                    }
+                } 
+
+                }
         })
         if (!user) throw new NotFoundError(`User Not Found: ${username}`);
 
@@ -128,7 +148,7 @@ export default class Users {
         return user
     }
 
-    
+
     static async update() {
 
     }

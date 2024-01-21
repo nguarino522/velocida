@@ -1,9 +1,10 @@
 import express from "express"
 import Follows from "../models/follow"
+import { ensureLoggedIn } from "../middleware/auth"
 
 const router = express.Router()
 
-router.post("/", async (req, res, next) => {
+router.post("/", ensureLoggedIn, async (req, res, next) => {
     try {
         const follow = await Follows.create(req.body.followeeId, req.body.followerId)
         return res.status(201).json({ follow })
@@ -12,7 +13,7 @@ router.post("/", async (req, res, next) => {
     }
 })
 
-router.delete("/", async (req, res, next) => {
+router.delete("/", ensureLoggedIn, async (req, res, next) => {
     try {
         const follow = await Follows.remove(req.body.followeeId, req.body.followerId)
         return res.status(201).json({ follow })
