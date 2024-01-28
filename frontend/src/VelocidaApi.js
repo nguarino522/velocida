@@ -1,11 +1,8 @@
 import axios from "axios";
 
 //const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5227";
-// const BASE_URL = import.meta.env.REACT_APP_BASE_URL || "http://localhost:5227";
-
-function getBaseUrl() {
-  return process.env.REACT_APP_BASE_URL || "http://localhost:5227";
-}
+//const BASE_URL = import.meta.env.REACT_APP_BASE_URL || "http://localhost:5227";
+const API_BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:5227";
 
 /** API Class.
  *
@@ -24,8 +21,7 @@ class VelocidaApi {
 
     //there are multiple ways to pass an authorization token, this is how you pass it in the header.
     //this has been provided to show you another way to pass the token. you are only expected to read this code for this project.
-    // const url = `${BASE_URL}/${endpoint}`;
-    const url = `${getBaseUrl()}/${endpoint}`
+    const url = `${API_BASE_URL}/${endpoint}`;
     const headers = { Authorization: `Bearer ${VelocidaApi.token}` };
     const params = (method === "get")
       ? data
@@ -50,6 +46,7 @@ class VelocidaApi {
 
   /** Get token for login from username, password. */
   static async login(data) {
+    console.log(BASE_URL)
     let res = await this.request(`auth/token`, data, "post");
     return res.token;
   }
