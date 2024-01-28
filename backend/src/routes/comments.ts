@@ -1,5 +1,6 @@
 import express from "express"
 import Comments from "../models/comment"
+import { ensureAdmin } from "../middleware/auth"
 
 const router = express.Router()
 
@@ -12,7 +13,7 @@ router.post("/", async (req, res, next) => {
   }
 })
 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", ensureAdmin, async (req, res, next) => {
   try {
       const comment = await Comments.remove(Number(req.params.id))
       return res.json({ deleted: comment })

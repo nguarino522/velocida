@@ -49,7 +49,16 @@ export default class Activities {
             where: { id: activityId },
             include: {
                 owner: true,
-                comments: true,
+                comments: {
+                    select: {
+                        owner: {
+                            select: {
+                                user: true
+                            }
+                        },
+                        content: true
+                    }
+                },
                 likes: true
             }
         })

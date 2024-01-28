@@ -167,6 +167,24 @@ class VelocidaApi {
     let res = await this.request("follow", data, "delete")
     return res.follow
   }
+
+  /** Create a comment. */
+  static async createComment(data) {
+    let res = await this.request("comment", data, "post")
+    return res.comment
+  }
+
+  /** Create a like. */
+  static async createLike(data) {
+    let res = await this.request("like", data, "post")
+    return res.like
+  }
+
+  /** Delete a like. */
+  static async deleteLike(id) {
+    let res = await this.request(`like/${id}`, {}, "delete")
+    return res.like
+  }
 }
 
 

@@ -122,7 +122,9 @@ export default class Users {
                         updatedAt: true,
                         userId: true,
                         followers: true,
-                        following: true
+                        following: true,
+                        activities: true,
+                        likes: true
                     }
                 } 
 

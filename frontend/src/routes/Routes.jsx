@@ -12,6 +12,7 @@ import ProfileView from "../components/ProfileView"
 import ActivityForm from "../components/ActivityForm"
 import ActivityView from "../components/ActivityView"
 import Thread from "../components/Thread"
+import ActivitiesView from "../components/ActivitiesView"
 
 const Routing = ({ login, signup, handleToastClose, showToast }) => {
     return (
@@ -28,7 +29,8 @@ const Routing = ({ login, signup, handleToastClose, showToast }) => {
                 <Route path="/edit_profile" element={<PrivateRoute><ProfileForm handleToastClose={handleToastClose} showToast={showToast} /></PrivateRoute>}/>
                 <Route path="/profile/:id" element={<ProfileView showToast={showToast} />} />
                 <Route path="/log_activity" element={<ActivityForm showToast={showToast} />} />
-                <Route path="/activity/:id" element={<ActivityView />} />
+                <Route path="/activity/:id" element={<ActivityView showToast={showToast} />} />
+                <Route path="/activities" element={<ActivitiesView />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Routes>
         </div>

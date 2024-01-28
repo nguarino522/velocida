@@ -1,0 +1,18 @@
+.Liked,
+.LikeBtn:hover,
+.LikeBtn:active {
+    color: #4CAF50;
+    /* Change color to green for thumbs-up when voted */
+    transform: scale(1.2);
+    /* Scale up when voted */
+}
+
+.LikeBtn {
+    /* Add any additional styling you need for the non-hovered state */
+    cursor: pointer; /* Add this to show pointer cursor on hover */
+    background-color: transparent;
+    transition: color 0.3s, transform 0.3s;
+    border: none;
+    font-size: 24px;
+    margin-right: 10px;
+}
