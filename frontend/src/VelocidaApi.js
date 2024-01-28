@@ -46,7 +46,6 @@ class VelocidaApi {
 
   /** Get token for login from username, password. */
   static async login(data) {
-    console.log(BASE_URL)
     let res = await this.request(`auth/token`, data, "post");
     return res.token;
   }
