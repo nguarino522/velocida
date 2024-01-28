@@ -9,40 +9,40 @@ datasource db {
 
 model Profile {
   id         Int        @id @default(autoincrement())
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
   bio        String?
-  firstName  String
-  lastName   String
   userId     Int        @unique
   age        Int?
-  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  posts      Post[]
-  votes      Vote[]
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  firstName  String
+  lastName   String
   activities Activity[]
-  likes      Like[]
   comments   Comment[]
   followers  Follow[]   @relation("following")
   following  Follow[]   @relation("follower")
+  likes      Like[]
+  posts      Post[]
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   Thread     Thread[]
+  votes      Vote[]
 }
 
 model Follow {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  followee   Profile  @relation("following", fields: [followeeId], references: [id], onDelete: Cascade)
   followeeId Int
-  follower   Profile  @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
   followerId Int
+  followee   Profile  @relation("following", fields: [followeeId], references: [id], onDelete: Cascade)
+  follower   Profile  @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
 
   @@id([followerId, followeeId])
 }
 
 model User {
   id        Int      @id @default(autoincrement())
+  email     String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  email     String   @unique
   username  String   @unique
   password  String
   role      Role     @default(USER)
@@ -67,10 +67,10 @@ model Comment {
   id         Int      @id @default(autoincrement())
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  content    String
   activityId Int
-  activity   Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
   ownerId    Int
+  content    String
+  activity   Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
   owner      Profile  @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 }
 
@@ -79,8 +79,8 @@ model Like {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   activityId Int
-  activity   Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
   ownerId    Int
+  activity   Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
   owner      Profile  @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 }
 
@@ -90,8 +90,8 @@ model Thread {
   updatedAt DateTime @updatedAt
   title     String   @db.VarChar(255)
   authorId  Int
-  author    Profile  @relation(fields: [authorId], references: [id])
   posts     Post[]
+  author    Profile  @relation(fields: [authorId], references: [id])
 }
 
 model Post {
@@ -100,12 +100,12 @@ model Post {
   updatedAt    DateTime @updatedAt
   content      String
   authorId     Int
-  author       Profile  @relation(fields: [authorId], references: [id])
-  threadId     Int
-  thread       Thread   @relation(fields: [threadId], references: [id], onDelete: Cascade)
   parentPostId Int?
+  threadId     Int
+  author       Profile  @relation(fields: [authorId], references: [id])
   parentPost   Post?    @relation("ChildPosts", fields: [parentPostId], references: [id])
   childPost    Post[]   @relation("ChildPosts")
+  thread       Thread   @relation(fields: [threadId], references: [id], onDelete: Cascade)
   votes        Vote[]
 }
 
@@ -114,10 +114,10 @@ model Vote {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   postId    Int
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   authorId  Int
-  author    Profile  @relation(fields: [authorId], references: [id], onDelete: Cascade)
   upvote    Boolean
+  author    Profile  @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
 
 enum Role {
