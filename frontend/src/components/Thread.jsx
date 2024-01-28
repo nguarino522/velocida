@@ -41,13 +41,17 @@ const Thread = ({ showToast }) => {
 
     return (
         <div>
-            <h2>{thread.title}</h2>
-            {thread.posts.map((post) => (
-                <div className="container" key={post.id}>
-                    <Post post={post} showToast={showToast} />
-                </div>
-            ))}
-        </div>
+        {thread && (
+            <>
+                <h2>{thread.title}</h2>
+                {thread.posts.map((post) => (
+                    <div className="container" key={post.id}>
+                        <Post post={post} showToast={showToast} />
+                    </div>
+                ))}
+            </>
+        )}
+    </div>
     );
 };
 
