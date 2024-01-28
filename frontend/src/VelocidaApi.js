@@ -4,7 +4,7 @@ import axios from "axios";
 // const BASE_URL = import.meta.env.REACT_APP_BASE_URL || "http://localhost:5227";
 
 function getBaseUrl() {
-  return import.meta.env.REACT_APP_BASE_URL || "http://localhost:5227"
+  return process.env.REACT_APP_BASE_URL || "http://localhost:5227";
 }
 
 /** API Class.
