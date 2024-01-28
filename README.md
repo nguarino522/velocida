@@ -21,7 +21,7 @@ The basic functionality has a manual activity upload but future goal is to get a
 
 ## **Live Website**
 - I am hosting on Vercel for frontend: https://velocida.vercel.app/ -> Built using Vite and React with Javascript.
-- I am hosting on Render for the backend: https://velocida-backend.onrender.com -> uses Prisma for ORM and built using Typescript.
+- I am hosting on Render for the backend: https://velocida-backend.onrender.com -> Uses Prisma for ORM and built using Typescript. It can be used as standalone API as well.
 - For the PostgreSQL DB, this being hosted on Supabase: https://supabase.com/
 NOTE: Backend app may need to spin back up so initial load could take a couple minutes at least but once loaded will run normally.
 
