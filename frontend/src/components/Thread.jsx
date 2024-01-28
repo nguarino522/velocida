@@ -34,7 +34,7 @@ const Thread = ({ showToast }) => {
             retrieveThread();
         }
 
-        setThreadLoaded(false)
+        setThreadLoaded(true)
     }, [id]);
 
     if (!threadLoaded) return <LoadingSpinner />;
