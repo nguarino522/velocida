@@ -17,6 +17,8 @@ import voteRoutes from "./routes/votes"
 import likeRoutes from "./routes/likes"
 import commentRoutes from "./routes/comments"
 import request from "request"
+import prisma from "./prisma"
+import nc from 'node-cron'
 
 const app = express()
 
@@ -79,5 +81,28 @@ app.use((err: any, req: any, res: any, next: any) => {
         error: { message, status }
     })
 })
+
+/** For making sure we hit Supabase DB once a day at least so it doesn't get shutdown for being idle */
+// nc.schedule('0 0 12 1/1 * ? *', async () => {
+nc.schedule('0 0/1 * 1/1 * ? *', async () => {
+    let dbConnected = false
+    try {
+        dbConnected = await prisma.$queryRaw`SELECT 1` ? true : false
+        console.log({
+            uptime: process.uptime(),
+            message: "ok",
+            date: new Date(Date.now()).toISOString(),
+            dbConnected: dbConnected
+        })
+    } catch (error){
+        console.log(error)
+        console.log({
+            uptime: process.uptime(),
+            message: error,
+            date: new Date(Date.now()).toISOString(),
+            dbConnected: dbConnected
+        })
+    }
+});
 
 export default app
